@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.madcamp.tabapp.databinding.FragmentPhotosBinding
+import com.madcamp.tabapp.phototab.PhotoModel
+import com.madcamp.tabapp.phototab.PhotosAdapter
 
 class PhotosFragment : Fragment(R.layout.fragment_photos) {
     private lateinit var binding: FragmentPhotosBinding

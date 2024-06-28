@@ -1,10 +1,11 @@
-package com.madcamp.tabapp
+package com.madcamp.tabapp.phototab
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.madcamp.tabapp.R
 import com.madcamp.tabapp.databinding.PhotoItemBinding
 
 class PhotosAdapter(val fragment: Fragment, val photoList: ArrayList<PhotoModel>) : RecyclerView.Adapter<PhotosAdapter.Holder>() {

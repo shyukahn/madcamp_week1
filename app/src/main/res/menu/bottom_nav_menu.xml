@@ -3,7 +3,7 @@
     <item
         android:id="@+id/contacts"
         android:title="대전 빵집"
-        android:icon="@drawable/ic_contacts_foreground"/>
+        android:icon="@drawable/ic_bread"/>
     <item
         android:id="@+id/photos"
         android:title="Photos"

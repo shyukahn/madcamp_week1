@@ -1,9 +1,12 @@
 package com.madcamp.tabapp
 
+import android.nfc.Tag
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -16,6 +19,7 @@ import java.io.InputStreamReader
 class ContactsFragment:Fragment(R.layout.fragment_contacts) {
 
     private lateinit var binding: FragmentContactsBinding
+    private lateinit var storeContactListAdapter: ContactAdapter
     private val contactList: ArrayList<ContactModel> = arrayListOf()
 
     override fun onCreateView(
@@ -25,11 +29,26 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
     ): View {
         binding = FragmentContactsBinding.inflate(layoutInflater)
         loadContactsFromJson()
+        storeContactListAdapter = ContactAdapter(contactList)
 
         binding.breadStoreRv.apply {
-            adapter = ContactAdapter(contactList)
+            adapter = storeContactListAdapter
             layoutManager = LinearLayoutManager(context)
         }
+
+        binding.searchBar.setOnQueryTextListener(
+            object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(s: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                storeContactListAdapter.getFilter().filter(newText)
+                Log.d("ContactsFragment", "SearchView Text is changed: $newText")
+
+                return false
+            }
+        })
 
         return binding.root
     }

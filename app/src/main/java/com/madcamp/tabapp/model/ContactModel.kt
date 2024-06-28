@@ -1,7 +1,9 @@
 package com.madcamp.tabapp.model
 
+import com.google.gson.annotations.SerializedName
+
 data class ContactModel(
-    val storeImage: Int,
-    val storeName: String,
-    val storeNumber: String
+    @SerializedName("id") val storeImage: Int,
+    @SerializedName("name") val storeName: String,
+    @SerializedName("phone") val storeNumber: String
 )

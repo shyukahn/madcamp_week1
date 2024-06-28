@@ -6,18 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.madcamp.tabapp.adapter.ContactAdapter
 import com.madcamp.tabapp.databinding.FragmentContactsBinding
 import com.madcamp.tabapp.model.ContactModel
+import java.io.InputStreamReader
 
 class ContactsFragment:Fragment(R.layout.fragment_contacts) {
 
     private lateinit var binding: FragmentContactsBinding
-    private val contactList: ArrayList<ContactModel> = arrayListOf(
-        ContactModel(1,"성심당 본점", "1588-8069"),
-        ContactModel(2, "성심당 대전역점", "042-220-4138"),
-        ContactModel(3, "당신을 위한 빵집", "010-6785-5949"),
-    )
+    private val contactList: ArrayList<ContactModel> = arrayListOf()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +24,7 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentContactsBinding.inflate(layoutInflater)
+        loadContactsFromJson()
 
         binding.breadStoreRv.apply {
             adapter = ContactAdapter(contactList)
@@ -32,5 +32,15 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
         }
 
         return binding.root
+    }
+
+    private fun loadContactsFromJson() {
+        val inputStream = resources.openRawResource(R.raw.contacts)
+        val reader = InputStreamReader(inputStream)
+        val type = object : TypeToken<List<ContactModel>>() {}.type
+        val contacts: List<ContactModel> = Gson().fromJson(reader, type)
+        contactList.addAll(contacts)
+        println(contactList)
+        reader.close()
     }
 }

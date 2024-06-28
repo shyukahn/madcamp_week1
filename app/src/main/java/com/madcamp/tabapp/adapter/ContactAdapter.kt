@@ -37,23 +37,4 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>) : Recycle
     override fun getItemCount(): Int {
         return contactList.size
     }
-
-//    class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-//
-//        val storeImage: ImageView = itemView.findViewById<ImageView>(R.id.storeImage)
-//        val storeName: TextView = itemView.findViewById<TextView>(R.id.storeName)
-//        val storeNumber: TextView = itemView.findViewById<TextView>(R.id.storeNumber)
-//    }
-
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.contact_item, parent, false))
-//    }
-
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        val contact = contactList[position]
-//
-//        holder.storeImage.setImageResource(contact.storeImage)
-//        holder.storeName.text = contact.storeName
-//        holder.storeNumber.text = contact.storeNumber
-//    }
 }

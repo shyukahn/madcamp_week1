@@ -14,39 +14,30 @@ import com.madcamp.tabapp.databinding.FragmentContactsBinding
 import com.madcamp.tabapp.data.ContactModel
 import java.io.InputStreamReader
 
-class ContactsFragment:Fragment(R.layout.fragment_contacts) {
+class ContactsFragment : Fragment(R.layout.fragment_contacts) {
 
-    private lateinit var binding: FragmentContactsBinding
+    private var _binding: FragmentContactsBinding? = null
+    private val binding get() = _binding!!
+
     private lateinit var storeContactListAdapter: ContactAdapter
     private val contactList: ArrayList<ContactModel> = arrayListOf()
 
     override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
+        inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
-        binding = FragmentContactsBinding.inflate(layoutInflater)
+    ): View? {
+        _binding = FragmentContactsBinding.inflate(inflater, container, false)
+
         loadContactsFromJson()
-        storeContactListAdapter = ContactAdapter(contactList)
-
-        binding.breadStoreRv.apply {
-            adapter = storeContactListAdapter
-            layoutManager = LinearLayoutManager(context)
-        }
-
-        binding.searchBar.setOnQueryTextListener(
-            object : SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(s: String): Boolean {
-                return false
-            }
-
-            override fun onQueryTextChange(newText: String): Boolean {
-                storeContactListAdapter.getFilter().filter(newText)
-                return false
-            }
-        })
+        setupRecyclerView()
+        setupSearchView()
 
         return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun loadContactsFromJson() {
@@ -56,5 +47,26 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
         val contacts: List<ContactModel> = Gson().fromJson(reader, type)
         contactList.addAll(contacts)
         reader.close()
+    }
+
+    private fun setupRecyclerView() {
+        storeContactListAdapter = ContactAdapter(contactList, requireContext())
+        binding.breadStoreRv.apply {
+            adapter = storeContactListAdapter
+            layoutManager = LinearLayoutManager(context)
+        }
+    }
+
+    private fun setupSearchView() {
+        binding.searchBar.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(s: String): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                storeContactListAdapter.filter.filter(newText)
+                return false
+            }
+        })
     }
 }

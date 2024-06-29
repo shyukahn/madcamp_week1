@@ -29,6 +29,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>) : Recycle
         val storeImage = binding.storeImage
         val storeName = binding.storeName
         val storeNumber = binding.storeNumber
+        val storeLocation = binding.storeLocation
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -43,6 +44,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>) : Recycle
         holder.storeImage.setImageResource(R.drawable.test_store_image)
         holder.storeName.text = contact.storeName
         holder.storeNumber.text = contact.storeNumber
+        holder.storeLocation.text = contact.storeLocation
     }
 
     override fun getItemCount(): Int {

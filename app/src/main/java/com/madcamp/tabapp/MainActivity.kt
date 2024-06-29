@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.madcamp.tabapp.databinding.ActivityMainBinding
-import com.madcamp.tabapp.model.ContactModel
 
 class MainActivity : AppCompatActivity() {
 

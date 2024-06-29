@@ -1,19 +1,14 @@
-package com.madcamp.tabapp.adapter
+package com.madcamp.tabapp.adapters
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.R
 import com.madcamp.tabapp.databinding.ContactItemBinding
-import com.madcamp.tabapp.model.ContactModel
+import com.madcamp.tabapp.data.ContactModel
 
 class ContactAdapter(private val contactList: ArrayList<ContactModel>) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(), Filterable {
 

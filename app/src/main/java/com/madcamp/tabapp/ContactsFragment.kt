@@ -1,8 +1,6 @@
 package com.madcamp.tabapp
 
-import android.nfc.Tag
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +9,9 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.madcamp.tabapp.adapter.ContactAdapter
+import com.madcamp.tabapp.adapters.ContactAdapter
 import com.madcamp.tabapp.databinding.FragmentContactsBinding
-import com.madcamp.tabapp.model.ContactModel
+import com.madcamp.tabapp.data.ContactModel
 import java.io.InputStreamReader
 
 class ContactsFragment:Fragment(R.layout.fragment_contacts) {

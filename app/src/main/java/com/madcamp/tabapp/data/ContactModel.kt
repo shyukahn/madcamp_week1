@@ -1,4 +1,4 @@
-package com.madcamp.tabapp.model
+package com.madcamp.tabapp.data
 
 import com.google.gson.annotations.SerializedName
 

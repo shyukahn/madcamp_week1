@@ -1,4 +1,4 @@
-package com.madcamp.tabapp.phototab
+package com.madcamp.tabapp.data
 
 data class PhotoModel(
     val id: Int,

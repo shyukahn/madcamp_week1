@@ -5,9 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.madcamp.tabapp.data.PhotoModel
 import com.madcamp.tabapp.databinding.FragmentPhotoFullscreenBinding
 
-class PhotoFullscreenFragment(private val resId: Int) : Fragment(R.layout.fragment_photo_fullscreen) {
+class PhotoFullscreenFragment(private val photo: PhotoModel) : Fragment(R.layout.fragment_photo_fullscreen) {
     private lateinit var binding: FragmentPhotoFullscreenBinding
 
     override fun onCreateView(
@@ -18,7 +19,11 @@ class PhotoFullscreenFragment(private val resId: Int) : Fragment(R.layout.fragme
         binding = FragmentPhotoFullscreenBinding.inflate(inflater, container, false)
         val view = binding.fullscreenPhoto
         view.apply {
-            setImageResource(resId)
+            if (photo.isId) {
+                setImageResource(photo.id!!)
+            } else {
+                setImageURI(photo.uri)
+            }
             setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }

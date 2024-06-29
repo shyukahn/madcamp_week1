@@ -2,7 +2,6 @@ package com.madcamp.tabapp.adapters
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
@@ -26,16 +25,25 @@ class PhotosAdapter(val fragment: Fragment, val photoList: ArrayList<PhotoModel>
         val photo = photoList[position]
         holder.item.setOnClickListener {
             val fragmentManager = fragment.requireActivity().supportFragmentManager
-            val fullscreenFragment = PhotoFullscreenFragment(photo.id)
+            val fullscreenFragment = PhotoFullscreenFragment(photo)
             fragmentManager
                 .beginTransaction()
                 .replace(R.id.mainFrameLayout, fullscreenFragment, "PHOTOS_FULLSCREEN")
                 .addToBackStack(null)
                 .commit()
         }
-        holder.src.setImageDrawable(ContextCompat.getDrawable(fragment.requireContext(), photo.id))
+        if (photo.isId) {
+            holder.src.setImageResource(photo.id!!)
+        } else {
+            holder.src.setImageURI(photo.uri)
+        }
         holder.text.text = photo.text
     }
 
     override fun getItemCount(): Int = photoList.size
+
+    fun addPhoto(photoModel: PhotoModel) {
+        photoList.add(photoModel)
+        notifyItemInserted(photoList.size - 1)
+    }
 }

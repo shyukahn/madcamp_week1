@@ -25,11 +25,6 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
 
     class ViewHolder(private val binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root){
 
-        val storeImage = binding.storeImage
-        val storeName = binding.storeName
-        val storeNumber = binding.storeNumber
-        val storeLocation = binding.storeLocation
-
         fun bind(contact: ContactModel, context: Context) {
             binding.storeName.text = contact.storeName
             binding.storeNumber.text = contact.storeNumber

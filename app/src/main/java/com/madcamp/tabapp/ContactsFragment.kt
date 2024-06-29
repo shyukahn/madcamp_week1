@@ -44,8 +44,6 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 storeContactListAdapter.getFilter().filter(newText)
-                Log.d("ContactsFragment", "SearchView Text is changed: $newText")
-
                 return false
             }
         })
@@ -59,7 +57,6 @@ class ContactsFragment:Fragment(R.layout.fragment_contacts) {
         val type = object : TypeToken<List<ContactModel>>() {}.type
         val contacts: List<ContactModel> = Gson().fromJson(reader, type)
         contactList.addAll(contacts)
-        println(contactList)
         reader.close()
     }
 }

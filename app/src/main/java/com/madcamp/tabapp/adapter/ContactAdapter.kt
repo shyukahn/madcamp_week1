@@ -91,9 +91,6 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>) : Recycle
         override fun publishResults(charSequence: CharSequence?, filterResults: FilterResults) {
             filteredContactList.clear()
             filteredContactList.addAll(filterResults.values as ArrayList<ContactModel>)
-
-            println("화면에 렌더링되어야하는 리스트"+filteredContactList)
-
             notifyDataSetChanged()
         }
     }

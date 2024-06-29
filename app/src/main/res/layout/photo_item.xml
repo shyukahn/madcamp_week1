@@ -1,12 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
+    android:layout_height="wrap_content"
+    android:layout_margin="4dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="12dp"
+    app:cardElevation="12dp"
+    app:contentPadding="@dimen/photos_padding">
+
+    <RelativeLayout
         android:id="@+id/rvPhotoItem"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="sungsimdang"
-        android:src="@drawable/sungsimdang"
-        android:layout_gravity="center"/>
-</LinearLayout>
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/rvPhotoImage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:adjustViewBounds="true"
+            android:contentDescription="sungsimdang"
+            tools:src="@drawable/sungsimdang" />
+
+        <TextView
+            android:id="@+id/rvPhotoText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/rvPhotoImage"
+            tools:text="성심당"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -24,7 +24,7 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
             // TODO: test user "admin" -> refactor using variable
             val user = userDao.getUserByLoginId("admin")
             if (user != null) {
-                binding.nickname.text = user.fullName
+                binding.nickname.text = user.nickname
             }
         }
         binding.bookmarkedBakeries.setOnClickListener {

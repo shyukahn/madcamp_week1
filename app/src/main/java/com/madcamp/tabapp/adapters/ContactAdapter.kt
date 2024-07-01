@@ -11,6 +11,7 @@ import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Bookmark
 import com.madcamp.tabapp.data.database.InitDb
@@ -37,9 +38,15 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
             binding.storeName.text = contact.storeName
             binding.storeNumber.text = contact.storeNumber
             binding.storeAddress.text = contact.storeAddress
-            binding.storeImage.setImageResource(R.drawable.test_store_image)
+//            binding.storeImage.setImageResource(R.drawable.test_store_image)
             // TODO: Fix Resources$NotFoundException
             // binding.storeImage.setImageResource(contact.storeImage)
+
+            // Glide를 사용하여 이미지 로드
+            Glide.with(binding.storeThumbnail.context)
+                .load(contact.storeThumbnail)
+                .into(binding.storeThumbnail)
+
             setBookmarkIcon(binding.starStoreBtn, contact.isBookmarked)
 
             binding.callStoreBtn.setOnClickListener {

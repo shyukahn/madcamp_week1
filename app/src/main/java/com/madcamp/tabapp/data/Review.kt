@@ -16,7 +16,9 @@ data class Review(
     @ColumnInfo(name = "image_uri") // 사진 Uri 주소
     val imageUri: String,
     @ColumnInfo(name = "writer") // 리뷰 작성자명
-    val writer: String
+    val writer: String,
+    @ColumnInfo(name = "profile_uri")
+    val profileUri: String
 ) {
     fun getCopyWithNewId(newId: Long): Review {
         return Review(
@@ -24,7 +26,8 @@ data class Review(
             name = this.name,
             reviewText = this.reviewText,
             imageUri = this.imageUri,
-            writer = this.writer
+            writer = this.writer,
+            profileUri = this.profileUri
         )
     }
 }

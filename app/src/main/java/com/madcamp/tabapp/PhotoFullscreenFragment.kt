@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.madcamp.tabapp.data.model.PhotoModel
 import com.madcamp.tabapp.databinding.FragmentPhotoFullscreenBinding
 
 class PhotoFullscreenFragment(private val uri: Uri) : Fragment(R.layout.fragment_photo_fullscreen) {

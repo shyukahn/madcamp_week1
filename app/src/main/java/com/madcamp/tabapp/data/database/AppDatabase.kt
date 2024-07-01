@@ -13,7 +13,7 @@ import com.madcamp.tabapp.data.ReviewDao
 import com.madcamp.tabapp.data.User
 import com.madcamp.tabapp.data.UserDao
 
-@Database(entities = [User::class, Bookmark::class, Review::class], version = 4, exportSchema = false)
+@Database(entities = [User::class, Bookmark::class, Review::class], version = 5, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun bookmarkDao(): BookmarkDao
@@ -30,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DbConfig.ROOM_DB_NAME
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
                     .build()
                 INSTANCE = instance
                 instance
@@ -87,6 +87,12 @@ abstract class AppDatabase : RoomDatabase() {
                         writer TEXT NOT NULL
                     )
                 """.trimIndent())
+            }
+        }
+
+        val MIGRATION_4_5 = object : Migration(4, 5) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                db.execSQL("ALTER TABLE ${DbConfig.REVIEW_TABLE} ADD COLUMN profile_uri TEXT NOT NULL DEFAULT ''")
             }
         }
     }

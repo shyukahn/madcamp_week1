@@ -8,10 +8,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
+import android.widget.ImageButton
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.R
-import com.madcamp.tabapp.data.ContactModel
+import com.madcamp.tabapp.data.model.ContactModel
+import com.madcamp.tabapp.data.Bookmark
+import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.ContactItemBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class ContactAdapter(private val contactList: ArrayList<ContactModel>, private val context: Context) :
     RecyclerView.Adapter<ContactAdapter.ViewHolder>(), Filterable {
@@ -23,28 +31,27 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
         filteredContactList.addAll(contactList)
     }
 
-    class ViewHolder(private val binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root){
+    class ViewHolder(private val binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(contact: ContactModel, context: Context) {
             binding.storeName.text = contact.storeName
             binding.storeNumber.text = contact.storeNumber
-            binding.storeLocation.text = contact.storeLocation
+            binding.storeAddress.text = contact.storeAddress
             binding.storeImage.setImageResource(R.drawable.test_store_image)
             // TODO: Fix Resources$NotFoundException
             // binding.storeImage.setImageResource(contact.storeImage)
+            setBookmarkIcon(binding.starStoreBtn, contact.isBookmarked)
 
             binding.callStoreBtn.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.storeNumber}"))
                 context.startActivity(intent)
             }
-
-            // 공유 버튼 클릭 리스너 설정
             binding.shareStoreBtn.setOnClickListener {
                 val shareText = """
                     추천 빵집을 소개합니다!
                     🏠 이름: ${contact.storeName}
                     📞 전화번호: ${contact.storeNumber}
-                    📍 위치: ${contact.storeLocation}
+                    📍 위치: ${contact.storeAddress}
                     """.trimIndent()
 
                 val intent = Intent().apply {
@@ -54,7 +61,14 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                 }
                 context.startActivity(Intent.createChooser(intent, "공유하기"))
             }
+        }
 
+        private fun setBookmarkIcon(starStoreBtn: ImageButton, isBookmarked: Boolean) {
+            if (isBookmarked) {
+                starStoreBtn.setImageResource(R.drawable.ic_round_star)
+            } else {
+                starStoreBtn.setImageResource(R.drawable.ic_round_star_outline)
+            }
         }
     }
 
@@ -82,7 +96,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
             val results = FilterResults()
 
             // 검색이 필요 없을 경우를 위해 원본 배열을 복제
-            val filteredList: ArrayList<ContactModel> = ArrayList<ContactModel>()
+            val filteredList: ArrayList<ContactModel> = ArrayList()
             // 공백 제외 아무런 값이 없을 경우 -> 원본 배열
             if (filterString.trim { it <= ' ' }.isEmpty()) {
                 results.values = contactList

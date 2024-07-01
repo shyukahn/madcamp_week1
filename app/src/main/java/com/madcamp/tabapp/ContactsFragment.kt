@@ -11,7 +11,7 @@ import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.madcamp.tabapp.adapters.ContactAdapter
 import com.madcamp.tabapp.databinding.FragmentContactsBinding
-import com.madcamp.tabapp.data.ContactModel
+import com.madcamp.tabapp.data.model.ContactModel
 import java.io.InputStreamReader
 
 class ContactsFragment : Fragment(R.layout.fragment_contacts) {
@@ -25,7 +25,7 @@ class ContactsFragment : Fragment(R.layout.fragment_contacts) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentContactsBinding.inflate(inflater, container, false)
 
         loadContactsFromJson()

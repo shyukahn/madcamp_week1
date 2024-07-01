@@ -1,4 +1,4 @@
-package com.madcamp.tabapp.data
+package com.madcamp.tabapp.data.database
 
 import android.app.Application
 

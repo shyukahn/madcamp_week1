@@ -8,6 +8,6 @@ import com.madcamp.tabapp.data.database.DbConfig
 @Entity(tableName = DbConfig.BOOKMARK_TABLE,)
 data class Bookmark(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    @ColumnInfo(name = "user_id") val userId: Int,
-    @ColumnInfo(name = "bakery_id") val bakeryId: Int
+    @ColumnInfo(name = "bakery_id") val bakeryId: Int,
+    @ColumnInfo(name = "is_bookmarked") var isBookmarked: Boolean
 )

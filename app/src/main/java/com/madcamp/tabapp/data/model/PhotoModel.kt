@@ -1,4 +1,4 @@
-package com.madcamp.tabapp.data
+package com.madcamp.tabapp.data.model
 
 import android.net.Uri
 

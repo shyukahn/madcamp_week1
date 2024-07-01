@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
 import com.madcamp.tabapp.R
-import com.madcamp.tabapp.data.PhotoModel
+import com.madcamp.tabapp.data.model.PhotoModel
 import com.madcamp.tabapp.databinding.PhotoItemBinding
 
 class PhotosAdapter(val fragment: Fragment, val photoList: ArrayList<PhotoModel>) : RecyclerView.Adapter<PhotosAdapter.Holder>() {

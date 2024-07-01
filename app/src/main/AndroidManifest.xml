@@ -13,7 +13,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TabApp"
-        android:name=".data.InitDb"
+        android:name=".data.database.InitDb"
         tools:targetApi="31">
         <activity
             android:name=".LoginActivity"

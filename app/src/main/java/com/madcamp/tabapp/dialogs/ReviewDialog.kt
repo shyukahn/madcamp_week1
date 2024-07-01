@@ -6,7 +6,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import com.madcamp.tabapp.adapters.PhotosAdapter
-import com.madcamp.tabapp.data.PhotoModel
+import com.madcamp.tabapp.data.model.PhotoModel
 import com.madcamp.tabapp.databinding.DialogAddReviewBinding
 
 class ReviewDialog(context: Context, private val photosAdapter: PhotosAdapter, private val uri: Uri) : Dialog(context) {

@@ -1,15 +1,25 @@
 package com.madcamp.tabapp.adapters
 
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
 import com.madcamp.tabapp.R
-import com.madcamp.tabapp.data.PhotoModel
+import com.madcamp.tabapp.data.InitDb
+import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.databinding.PhotoItemBinding
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
-class PhotosAdapter(val fragment: Fragment, val photoList: ArrayList<PhotoModel>) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
+class PhotosAdapter(
+    private val fragment: Fragment,
+    private val reviewList: MutableList<Review>
+    ) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
+    private val reviewDao = InitDb.appDatabase.reviewDao()
+
     inner class Holder(binding: PhotoItemBinding) : RecyclerView.ViewHolder(binding.root) {
         val item = binding.rvPhotoItem
         val src = binding.rvPhotoImage
@@ -22,28 +32,27 @@ class PhotosAdapter(val fragment: Fragment, val photoList: ArrayList<PhotoModel>
     }
 
     override fun onBindViewHolder(holder: Holder, position: Int) {
-        val photo = photoList[position]
+        val review = reviewList[position]
         holder.item.setOnClickListener {
             val fragmentManager = fragment.requireActivity().supportFragmentManager
-            val fullscreenFragment = PhotoFullscreenFragment(photo)
+            val fullscreenFragment = PhotoFullscreenFragment(Uri.parse(review.imageUri))
             fragmentManager
                 .beginTransaction()
                 .replace(R.id.mainFrameLayout, fullscreenFragment, "PHOTOS_FULLSCREEN")
                 .addToBackStack(null)
                 .commit()
         }
-        if (photo.isId) {
-            holder.src.setImageResource(photo.id!!)
-        } else {
-            holder.src.setImageURI(photo.uri)
-        }
-        holder.text.text = photo.text
+        holder.src.setImageURI(Uri.parse(review.imageUri))
+        holder.text.text = review.name
     }
 
-    override fun getItemCount(): Int = photoList.size
+    override fun getItemCount(): Int = reviewList.size
 
-    fun addPhoto(photoModel: PhotoModel) {
-        photoList.add(photoModel)
-        notifyItemInserted(photoList.size - 1)
+    fun addReview(review: Review) {
+        CoroutineScope(Dispatchers.IO).launch {
+            reviewDao.insert(review)
+        }
+        reviewList.add(review)
+        notifyItemInserted(reviewList.size - 1)
     }
 }

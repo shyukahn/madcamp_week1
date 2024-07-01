@@ -19,10 +19,10 @@ interface ReviewDao {
     suspend fun delete(review: Review)
 
     @Query("SELECT * from review_table WHERE id = :id")
-    fun getReviewById(id: Int): Review
+    suspend fun getReviewById(id: Int): Review
 
     @Query("SELECT * from review_table")
-    fun getAllReviews(): List<Review>
+    suspend fun getAllReviews(): List<Review>
 
     @Query("DELETE FROM review_table")
     suspend fun deleteAll()

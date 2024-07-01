@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.contacts -> setCurrentFragment(ContactsFragment(), "CONTACTS")
                 R.id.photos -> setCurrentFragment(PhotosFragment(), "PHOTOS")
-                R.id.settings -> setCurrentFragment(FreeFragment(), "FREE")
+                R.id.settings -> setCurrentFragment(MypageFragment(), "FREE")
             }
             true
         }

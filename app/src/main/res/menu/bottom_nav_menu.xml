@@ -6,10 +6,10 @@
         android:icon="@drawable/ic_bread"/>
     <item
         android:id="@+id/photos"
-        android:title="Photos"
-        android:icon="@drawable/ic_photos_foreground"/>
+        android:title="포토 리뷰"
+        android:icon="@drawable/ic_photos"/>
     <item
         android:id="@+id/settings"
-        android:title="Settings"
-        android:icon="@drawable/ic_settings_foreground"/>
+        android:title="마이페이지"
+        android:icon="@drawable/ic_mypage"/>
 </menu>

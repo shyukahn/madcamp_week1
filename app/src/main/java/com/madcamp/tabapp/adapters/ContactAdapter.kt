@@ -38,9 +38,6 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
             binding.storeName.text = contact.storeName
             binding.storeNumber.text = contact.storeNumber
             binding.storeAddress.text = contact.storeAddress
-//            binding.storeImage.setImageResource(R.drawable.test_store_image)
-            // TODO: Fix Resources$NotFoundException
-            // binding.storeImage.setImageResource(contact.storeImage)
 
             // Glide를 사용하여 이미지 로드
             Glide.with(binding.storeThumbnail.context)

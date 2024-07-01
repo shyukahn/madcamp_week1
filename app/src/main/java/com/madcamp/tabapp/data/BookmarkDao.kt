@@ -21,6 +21,6 @@ interface BookmarkDao {
     @Query("SELECT * FROM ${DbConfig.BOOKMARK_TABLE} WHERE bakery_id = :bakeryId")
     suspend fun getBookmark(bakeryId: Int): Bookmark?
 
-    @Query("SELECT * FROM ${DbConfig.BOOKMARK_TABLE}")
+    @Query("SELECT * FROM ${DbConfig.BOOKMARK_TABLE} WHERE is_bookmarked = 1")
     suspend fun getAllBookmarks(): List<Bookmark>
 }

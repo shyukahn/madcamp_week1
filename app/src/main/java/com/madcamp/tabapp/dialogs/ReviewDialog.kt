@@ -2,11 +2,13 @@ package com.madcamp.tabapp.dialogs
 
 import android.app.Dialog
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.model.PhotoModel
+import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.databinding.DialogAddReviewBinding
 
 class ReviewDialog(context: Context, private val photosAdapter: PhotosAdapter, private val uri: Uri) : Dialog(context) {
@@ -27,7 +29,14 @@ class ReviewDialog(context: Context, private val photosAdapter: PhotosAdapter, p
                 }
                 toast!!.show()
             } else {
-                photosAdapter.addPhoto(PhotoModel(binding.dialogTitle.text.toString(), uri = uri))
+                photosAdapter.addReview(Review(
+                    name = binding.dialogTitle.text.toString(),
+                    reviewText = binding.dialogReview.text.toString(),
+                    imageUri = uri.toString(),
+                    writer = "user"
+                ))
+                val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
+                context.contentResolver.takePersistableUriPermission(uri, flag)
                 dismiss()
             }
         }

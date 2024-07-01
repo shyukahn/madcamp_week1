@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts.PickVisualMedia
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.madcamp.tabapp.databinding.FragmentPhotosBinding
+import com.madcamp.tabapp.data.model.PhotoModel
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.InitDb
 import com.madcamp.tabapp.data.Review

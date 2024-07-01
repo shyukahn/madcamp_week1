@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.madcamp.tabapp.data.InitDb
+import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.data.User
 import com.madcamp.tabapp.data.UserDao
 import com.madcamp.tabapp.databinding.ActivityLoginBinding

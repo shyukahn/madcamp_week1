@@ -12,9 +12,9 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.R
-import com.madcamp.tabapp.data.model.ContactModel
 import com.madcamp.tabapp.data.Bookmark
 import com.madcamp.tabapp.data.database.InitDb
+import com.madcamp.tabapp.data.model.ContactModel
 import com.madcamp.tabapp.databinding.ContactItemBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -60,6 +60,33 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                     type = "text/plain"
                 }
                 context.startActivity(Intent.createChooser(intent, "공유하기"))
+            }
+
+            binding.starStoreBtn.setOnClickListener {
+                CoroutineScope(Dispatchers.IO).launch {
+                    val bookmarkDao = InitDb.appDatabase.bookmarkDao()
+                    val bookmark = bookmarkDao.getBookmark(contact.storeId)
+                    if (bookmark == null) {
+                        bookmarkDao.insert(Bookmark(bakeryId = contact.storeId, isBookmarked = true))
+                        withContext(Dispatchers.Main) {
+                            binding.starStoreBtn.setImageResource(R.drawable.ic_round_star)
+                            Toast.makeText(context, "즐겨찾기에 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        val newStatus = !bookmark.isBookmarked
+                        bookmark.isBookmarked = newStatus
+                        bookmarkDao.update(bookmark)
+                        withContext(Dispatchers.Main) {
+                            setBookmarkIcon(binding.starStoreBtn, newStatus)
+                            val message = if (newStatus) {
+                                "즐겨찾기에 추가되었습니다."
+                            } else {
+                                "즐겨찾기에서 제거되었습니다."
+                            }
+                            Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+                        }
+                    }
+                }
             }
         }
 

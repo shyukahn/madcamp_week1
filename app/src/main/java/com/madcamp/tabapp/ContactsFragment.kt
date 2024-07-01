@@ -58,7 +58,7 @@ class ContactsFragment : Fragment(R.layout.fragment_contacts) {
 
     private fun setupRecyclerView() {
         storeContactListAdapter = ContactAdapter(contactList, requireContext())
-        binding.breadStoreRv.apply {
+        binding.bakeryRv.apply {
             adapter = storeContactListAdapter
             layoutManager = LinearLayoutManager(context)
         }

@@ -38,16 +38,17 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
             binding.storeName.text = contact.storeName
             binding.storeNumber.text = contact.storeNumber
             binding.storeAddress.text = contact.storeAddress
-//            binding.storeImage.setImageResource(R.drawable.test_store_image)
-            // TODO: Fix Resources$NotFoundException
-            // binding.storeImage.setImageResource(contact.storeImage)
-
-            // Glide를 사용하여 이미지 로드
             Glide.with(binding.storeThumbnail.context)
                 .load(contact.storeThumbnail)
                 .into(binding.storeThumbnail)
 
-            setBookmarkIcon(binding.starStoreBtn, contact.isBookmarked)
+            CoroutineScope(Dispatchers.IO).launch {
+                val bookmarkDao = InitDb.appDatabase.bookmarkDao()
+                val bookmark = bookmarkDao.getBookmark(contact.storeId)
+                if (bookmark != null) {
+                    setBookmarkIcon(binding.starStoreBtn, bookmark.isBookmarked)
+                }
+            }
 
             binding.callStoreBtn.setOnClickListener {
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.storeNumber}"))

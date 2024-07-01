@@ -38,7 +38,7 @@ class PhotosAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val review = reviewList[position]
         holder.item.setOnClickListener {
-            showFullscreenImage(review)
+            showReviewInfo(review)
         }
         holder.item.setOnLongClickListener {
             showEditOrRemoveDialog(review, position)
@@ -78,9 +78,9 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
-    private fun showFullscreenImage(review: Review) {
+    private fun showReviewInfo(review: Review) {
         val fragmentManager = fragment.requireActivity().supportFragmentManager
-        val fullscreenFragment = PhotoFullscreenFragment(Uri.parse(review.imageUri))
+        val fullscreenFragment = PhotoFullscreenFragment(review)
         fragmentManager
             .beginTransaction()
             .replace(R.id.mainFrameLayout, fullscreenFragment, "PHOTOS_FULLSCREEN")

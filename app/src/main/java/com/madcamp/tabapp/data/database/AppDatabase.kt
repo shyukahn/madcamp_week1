@@ -8,13 +8,16 @@ import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.madcamp.tabapp.data.Bookmark
 import com.madcamp.tabapp.data.BookmarkDao
+import com.madcamp.tabapp.data.Review
+import com.madcamp.tabapp.data.ReviewDao
 import com.madcamp.tabapp.data.User
 import com.madcamp.tabapp.data.UserDao
 
-@Database(entities = [User::class, Bookmark::class], version = 3, exportSchema = false)
+@Database(entities = [User::class, Bookmark::class, Review::class], version = 4, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun bookmarkDao(): BookmarkDao
+    abstract fun reviewDao(): ReviewDao
 
     companion object {
         @Volatile
@@ -27,7 +30,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DbConfig.ROOM_DB_NAME
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3)
+                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4)
                     .build()
                 INSTANCE = instance
                 instance
@@ -36,8 +39,6 @@ abstract class AppDatabase : RoomDatabase() {
         // For database migration
         val MIGRATION_1_2 = object : Migration(1, 2) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                // Define SQL statements for the migration
-                // For example: database.execSQL("ALTER TABLE your_table ADD COLUMN new_column_name TEXT")
                 // BOOKMARK_TABLE 생성
                 db.execSQL("""
                     CREATE TABLE IF NOT EXISTS ${DbConfig.BOOKMARK_TABLE} (
@@ -49,7 +50,6 @@ abstract class AppDatabase : RoomDatabase() {
             }
         }
 
-        // For database migration from version 2 to 3
         val MIGRATION_2_3 = object : Migration(2, 3) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Create new table with the desired schema
@@ -72,6 +72,21 @@ abstract class AppDatabase : RoomDatabase() {
 
                 // Rename the new table to the old table name
                 db.execSQL("ALTER TABLE bookmark_table_new RENAME TO ${DbConfig.BOOKMARK_TABLE}")
+            }
+        }
+
+        val MIGRATION_3_4 = object : Migration(3, 4) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // REVIEW_TABLE 생성
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS ${DbConfig.REVIEW_TABLE} (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        name TEXT NOT NULL,
+                        review_text TEXT NOT NULL,
+                        image_uri TEXT NOT NULL,
+                        writer TEXT NOT NULL
+                    )
+                """.trimIndent())
             }
         }
     }

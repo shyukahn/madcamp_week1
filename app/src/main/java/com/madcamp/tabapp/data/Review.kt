@@ -3,6 +3,7 @@ package com.madcamp.tabapp.data
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.madcamp.tabapp.data.database.DbConfig
 
 @Entity(tableName = DbConfig.REVIEW_TABLE)
 data class Review(

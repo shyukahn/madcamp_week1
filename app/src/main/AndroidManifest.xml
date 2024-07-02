@@ -20,6 +20,10 @@
             android:name=".BaseActivity"
             android:exported="false" />
         <activity
+            android:name=".MyReviewsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_reviews" />
+        <activity
             android:name=".ContactDetailActivity"
             android:exported="false" />
         <activity

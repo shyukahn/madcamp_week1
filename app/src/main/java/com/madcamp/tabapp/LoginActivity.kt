@@ -87,7 +87,7 @@ class LoginActivity : BaseActivity() {
             val testUser = User(
                 loginId = loginId,
                 password = password,  // Note: In a real application, passwords should be hashed
-                nickname = "Admin User",
+                nickname = "대빵이",
                 contact = "admin@example.com"
             )
             userDao.insert(testUser)

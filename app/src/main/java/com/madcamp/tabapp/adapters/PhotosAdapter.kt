@@ -1,14 +1,15 @@
 package com.madcamp.tabapp.adapters
 
+import android.content.Context
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
-import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.PhotoItemBinding
@@ -18,11 +19,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
+// TODO: change the usage of layoutId to R.id.viewPager
 class PhotosAdapter(
+    private val context: Context,
     private val fragment: Fragment,
-    private val reviewList: MutableList<Review>
-) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
-
+    private val reviewList: MutableList<Review>,
+    private val layoutId: Int
+    ) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
     private val reviewDao = InitDb.appDatabase.reviewDao()
 
     inner class Holder(binding: PhotoItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -39,11 +42,13 @@ class PhotosAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val review = reviewList[position]
         holder.item.setOnClickListener {
-            showReviewInfo(review)
+            showReviewInfo(review, position)
         }
         holder.item.setOnLongClickListener {
-            showEditOrRemoveDialog(review, position)
-            true
+            if (review.isAdminUser) {
+                showEditOrRemoveDialog(review, position)
+            }
+            return@setOnLongClickListener true
         }
         holder.src.setImageURI(Uri.parse(review.imageUri))
         holder.text.text = review.name
@@ -79,20 +84,28 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
+/*
     private fun showReviewInfo(review: Review) {
         val fullscreenFragment = PhotoFullscreenFragment(review)
         fragment.parentFragmentManager
             .beginTransaction()
             .replace(R.id.viewPager, fullscreenFragment, "PHOTOS_FULLSCREEN")
+*/
+    private fun showReviewInfo(review: Review, position: Int) {
+        val fragmentManager = (context as AppCompatActivity).supportFragmentManager
+        val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
+        fragmentManager
+            .beginTransaction()
+            .replace(layoutId, fullscreenFragment, "PHOTOS_FULLSCREEN")
             .addToBackStack(null)
             .commit()
     }
 
     private fun showEditOrRemoveDialog(review: Review, position: Int) {
-        AlertDialog.Builder(this.fragment.requireContext())
+        AlertDialog.Builder(context)
             .setItems(arrayOf("Edit", "Remove")) { _, which ->
                 when (which) {
-                    0 -> ReviewDialog(fragment.requireContext(), this, review, position).show()
+                    0 -> ReviewDialog(context, this, review, position).show()
                     1 -> showRemoveDialog(review, position)
                 }
             }
@@ -101,12 +114,12 @@ class PhotosAdapter(
     }
 
     private fun showRemoveDialog(review: Review, position: Int) {
-        AlertDialog.Builder(this.fragment.requireContext())
+        AlertDialog.Builder(context)
             .setTitle("Remove")
             .setMessage("Remove this review?")
             .setPositiveButton("Yes") { _, _ ->
                 removeReview(review, position)
-                Toast.makeText(fragment.requireContext(), "Successfully removed review", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Successfully removed review", Toast.LENGTH_SHORT).show()
             }
             .setNegativeButton("No", null)
             .create()

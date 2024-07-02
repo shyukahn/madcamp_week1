@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/fullScreen"
+    android:background="@color/white"
     tools:context=".PhotoFullscreenFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -35,6 +36,17 @@
             app:layout_constraintStart_toEndOf="@id/profileImage"
             app:layout_constraintTop_toTopOf="@id/profileImage"
             tools:hint="user" />
+
+        <ImageButton
+            android:id="@+id/editButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#00FFFFFF"
+            android:contentDescription="edit button"
+            android:src="@drawable/ic_more_horz"
+            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/profileImage" />
 
         <ImageView
             android:id="@+id/reviewImage"

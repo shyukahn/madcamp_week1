@@ -19,6 +19,7 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMypageBinding.bind(view)
+        val userDao = InitDb.appDatabase.userDao()
 
         CoroutineScope(Dispatchers.IO).launch {
             val userDao = InitDb.appDatabase.userDao()
@@ -33,6 +34,10 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
 
         binding.bookmarkedBakeries.setOnClickListener {
             val intent = Intent(context, BookmarkedBakeriesActivity::class.java)
+            startActivity(intent)
+        }
+        binding.myReviews.setOnClickListener {
+            val intent = Intent(context, MyReviewsActivity::class.java)
             startActivity(intent)
         }
     }

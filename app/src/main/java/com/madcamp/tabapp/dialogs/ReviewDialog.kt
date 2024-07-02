@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import com.madcamp.tabapp.R
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.databinding.DialogAddReviewBinding
@@ -15,7 +14,7 @@ class ReviewDialog(
     context: Context,
     private val photosAdapter: PhotosAdapter,
     private val review: Review,
-    private val position: Int // -1 for add, position(>=0) for update
+    private val position: Int, // -1 for add, position(>=0) for update
 ) : Dialog(context) {
     private lateinit var binding: DialogAddReviewBinding
     private var toast: Toast? = null
@@ -42,8 +41,9 @@ class ReviewDialog(
                     name = binding.dialogTitle.text.toString(),
                     reviewText = binding.dialogReview.text.toString(),
                     imageUri = uri.toString(),
-                    writer = "admin",
-                    profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
+                    writer = review.writer,
+                    profileUri = review.profileUri,
+                    isAdminUser = review.isAdminUser
                 )
                 if (position >= 0){ // update
                     photosAdapter.updateReview(newReview, position)

@@ -27,7 +27,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
                 name = "",
                 reviewText = "",
                 imageUri = uri.toString(),
-                writer = "admin",
+                writer = "빵빵이",
                 profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.profile_image,
                 isAdminUser = true
             )

@@ -22,6 +22,9 @@ interface UserDao {
     @Query("SELECT * FROM ${DbConfig.USER_TABLE} WHERE login_id = :userId")
     suspend fun getUserByLoginId(userId: String): User?
 
+    @Query("SELECT * FROM ${DbConfig.USER_TABLE}")
+    suspend fun getAllUsers(): List<User>
+
     @Query("SELECT COUNT(*) FROM ${DbConfig.USER_TABLE}")
     fun getUserCount(): Int
 }

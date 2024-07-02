@@ -33,6 +33,9 @@ class ContactDetailActivity : AppCompatActivity() {
         binding.storeNumber.text = storeNumber
         binding.storeAddress.text = storeAddress
         Glide.with(this).load(storeThumbnail).into(binding.storeThumbnail)
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         // 비동기로 JSON 데이터를 로드
         CoroutineScope(Dispatchers.IO).launch {

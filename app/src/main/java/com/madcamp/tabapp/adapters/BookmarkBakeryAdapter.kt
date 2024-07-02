@@ -1,5 +1,6 @@
 package com.madcamp.tabapp.adapters
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -7,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.madcamp.tabapp.R
@@ -48,7 +50,8 @@ class BookmarkBakeryAdapter(private val bakeryList: ArrayList<ContactModel>, pri
                     putExtra(Intent.EXTRA_TEXT, shareText)
                     type = "text/plain"
                 }
-                context.startActivity(Intent.createChooser(intent, "공유하기"))
+                val options = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.slide_in_right, R.anim.slide_out_left)
+                context.startActivity(Intent.createChooser(intent, "공유하기"), options.toBundle())
             }
         }
     }

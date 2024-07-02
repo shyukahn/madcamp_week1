@@ -19,8 +19,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
+// TODO: change the usage of layoutId to R.id.viewPager
 class PhotosAdapter(
     private val context: Context,
+    private val fragment: Fragment,
     private val reviewList: MutableList<Review>,
     private val layoutId: Int
     ) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
@@ -82,6 +84,13 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
+/*
+    private fun showReviewInfo(review: Review) {
+        val fullscreenFragment = PhotoFullscreenFragment(review)
+        fragment.parentFragmentManager
+            .beginTransaction()
+            .replace(R.id.viewPager, fullscreenFragment, "PHOTOS_FULLSCREEN")
+*/
     private fun showReviewInfo(review: Review, position: Int) {
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
@@ -108,11 +117,11 @@ class PhotosAdapter(
         AlertDialog.Builder(context)
             .setTitle("Remove")
             .setMessage("Remove this review?")
-            .setPositiveButton("yes") { _, _ ->
+            .setPositiveButton("Yes") { _, _ ->
                 removeReview(review, position)
                 Toast.makeText(context, "Successfully removed review", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("no") { _, _ -> }
+            .setNegativeButton("No", null)
             .create()
             .show()
     }

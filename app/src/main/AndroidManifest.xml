@@ -17,10 +17,12 @@
         android:theme="@style/Theme.TabApp"
         tools:targetApi="31">
         <activity
+            android:name=".BaseActivity"
+            android:exported="false" />
+        <activity
             android:name=".MyReviewsActivity"
             android:exported="false"
-            android:label="@string/title_activity_my_reviews"
-            android:theme="@style/Theme.TabApp" />
+            android:label="@string/title_activity_my_reviews" />
         <activity
             android:name=".ContactDetailActivity"
             android:exported="false" />
@@ -41,8 +43,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TabApp.NoActionBar">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

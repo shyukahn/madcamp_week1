@@ -16,12 +16,11 @@
             android:id="@+id/toolbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:title="대전 빵집"
-            app:titleTextColor="@color/white"
-            android:background="#E65008"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent">
+            <include layout="@layout/toolbar_layout" />
+        </com.google.android.material.appbar.MaterialToolbar>
 
         <SearchView
             android:id="@+id/search_bar"

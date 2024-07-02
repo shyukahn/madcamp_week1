@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         // Delay to simulate loading (e.g., 2 seconds)
         Handler(Looper.getMainLooper()).postDelayed({
             checkLoginStatus()
-        }, 1000)
+        }, 2000)
     }
 
     private fun checkLoginStatus() {
@@ -33,10 +33,12 @@ class SplashActivity : AppCompatActivity() {
                     // If user exists, navigate to MainActivity
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, R.anim.fade_out)
                 } else {
                     // If no user exists, navigate to LoginActivity
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
+                    overridePendingTransition(0, R.anim.fade_out)
                 }
                 finish()
             }

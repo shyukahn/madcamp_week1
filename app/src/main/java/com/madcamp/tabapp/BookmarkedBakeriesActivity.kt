@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStreamReader
 
-class BookmarkedBakeriesActivity : AppCompatActivity() {
+class BookmarkedBakeriesActivity : BaseActivity() {
 
     private lateinit var binding: ActivityBookmarkedBakeriesBinding
     private lateinit var bookmarkBakeryAdapter: BookmarkBakeryAdapter
@@ -25,6 +25,10 @@ class BookmarkedBakeriesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBookmarkedBakeriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
 
         setupRecyclerView()
         loadBakeriesFromJson()

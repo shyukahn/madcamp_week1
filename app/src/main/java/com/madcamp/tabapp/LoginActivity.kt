@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
 
     private lateinit var btnLogin: Button
     private lateinit var binding: ActivityLoginBinding
@@ -87,7 +87,7 @@ class LoginActivity : AppCompatActivity() {
             val testUser = User(
                 loginId = loginId,
                 password = password,  // Note: In a real application, passwords should be hashed
-                nickname = "빵빵이",
+                nickname = "대빵이",
                 contact = "admin@example.com"
             )
             userDao.insert(testUser)

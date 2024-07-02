@@ -37,7 +37,6 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
 
         fun bind(contact: ContactModel, context: Context) {
             binding.storeName.text = contact.storeName
-            binding.storeNumber.text = contact.storeNumber
             binding.storeAddress.text = contact.storeAddress
             Glide.with(binding.storeThumbnail.context)
                 .load(contact.storeThumbnail)
@@ -117,6 +116,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                 starStoreBtn.setImageResource(R.drawable.ic_round_star_outline)
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

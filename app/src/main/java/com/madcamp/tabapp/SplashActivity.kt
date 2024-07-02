@@ -33,12 +33,12 @@ class SplashActivity : AppCompatActivity() {
                     // If user exists, navigate to MainActivity
                     val intent = Intent(this@SplashActivity, MainActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    overridePendingTransition(0, R.anim.fade_out)
                 } else {
                     // If no user exists, navigate to LoginActivity
                     val intent = Intent(this@SplashActivity, LoginActivity::class.java)
                     startActivity(intent)
-                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left)
+                    overridePendingTransition(0, R.anim.fade_out)
                 }
                 finish()
             }

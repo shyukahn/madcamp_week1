@@ -13,7 +13,7 @@ import com.madcamp.tabapp.data.ReviewDao
 import com.madcamp.tabapp.data.User
 import com.madcamp.tabapp.data.UserDao
 
-@Database(entities = [User::class, Bookmark::class, Review::class], version = 5, exportSchema = false)
+@Database(entities = [User::class, Bookmark::class, Review::class], version = 6, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun bookmarkDao(): BookmarkDao
@@ -30,7 +30,12 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     DbConfig.ROOM_DB_NAME
                 )
-                    .addMigrations(MIGRATION_1_2, MIGRATION_2_3, MIGRATION_3_4, MIGRATION_4_5)
+                    .addMigrations(
+                        MIGRATION_1_2,
+                        MIGRATION_2_3,
+                        MIGRATION_3_4,
+                        MIGRATION_4_5,
+                        MIGRATION_5_6)
                     .build()
                 INSTANCE = instance
                 instance
@@ -93,6 +98,50 @@ abstract class AppDatabase : RoomDatabase() {
         val MIGRATION_4_5 = object : Migration(4, 5) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 db.execSQL("ALTER TABLE ${DbConfig.REVIEW_TABLE} ADD COLUMN profile_uri TEXT NOT NULL DEFAULT ''")
+            }
+        }
+
+        val MIGRATION_5_6 = object : Migration(5, 6) {
+            override fun migrate(db: SupportSQLiteDatabase) {
+                // Migrate Review entity
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS Review_new (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        name TEXT NOT NULL,
+                        review_text TEXT NOT NULL,
+                        image_uri TEXT NOT NULL,
+                        user_id INTEGER NOT NULL
+                    )
+                """.trimIndent())
+
+                db.execSQL("""
+                    INSERT INTO Review_new (id, name, review_text, image_uri, user_id)
+                    SELECT id, name, review_text, image_uri, 0
+                    FROM ${DbConfig.REVIEW_TABLE}
+                """)
+
+                db.execSQL("DROP TABLE ${DbConfig.REVIEW_TABLE}")
+                db.execSQL("ALTER TABLE Review_new RENAME TO ${DbConfig.REVIEW_TABLE}")
+
+                // Migrate User entity
+                db.execSQL("""
+                    CREATE TABLE IF NOT EXISTS User_new (
+                        id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+                        login_id TEXT NOT NULL,
+                        password TEXT NOT NULL,
+                        nickname TEXT NOT NULL,
+                        profile_uri TEXT NOT NULL
+                    )
+                """.trimIndent())
+
+                db.execSQL("""
+                    INSERT INTO User_new (id, login_id, password, nickname, profile_uri)
+                    SELECT id, login_id, password, full_name, ''
+                    FROM ${DbConfig.USER_TABLE}
+                """)
+
+                db.execSQL("DROP TABLE ${DbConfig.USER_TABLE}")
+                db.execSQL("ALTER TABLE User_new RENAME TO ${DbConfig.USER_TABLE}")
             }
         }
     }

@@ -42,8 +42,7 @@ class ReviewDialog(
                     name = binding.dialogTitle.text.toString(),
                     reviewText = binding.dialogReview.text.toString(),
                     imageUri = uri.toString(),
-                    writer = "admin",
-                    profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
+                    userId = 1
                 )
                 if (position >= 0){ // update
                     photosAdapter.updateReview(newReview, position)

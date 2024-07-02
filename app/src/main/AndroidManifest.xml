@@ -17,6 +17,11 @@
         android:theme="@style/Theme.TabApp"
         tools:targetApi="31">
         <activity
+            android:name=".MyReviewsActivity"
+            android:exported="false"
+            android:label="@string/title_activity_my_reviews"
+            android:theme="@style/Theme.TabApp" />
+        <activity
             android:name=".ContactDetailActivity"
             android:exported="false" />
         <activity

@@ -3,13 +3,13 @@
     <item
         android:id="@+id/contacts"
         android:title="대전 빵집"
-        android:icon="@drawable/ic_bread"/>
+        android:icon="@drawable/ic_bread_selector"/>
     <item
         android:id="@+id/photos"
         android:title="포토 리뷰"
-        android:icon="@drawable/ic_photos"/>
+        android:icon="@drawable/ic_photos_selector"/>
     <item
         android:id="@+id/settings"
         android:title="마이페이지"
-        android:icon="@drawable/ic_mypage"/>
+        android:icon="@drawable/ic_mypage_selector"/>
 </menu>

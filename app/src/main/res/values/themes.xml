@@ -9,6 +9,7 @@
         <item name="android:windowBackground">@color/ivory_100</item>
         <item name="android:statusBarColor">@color/ivory_100</item>
         <item name="android:toolbarStyle">@style/Widget.AppTheme.Toolbar</item>
+        <item name="android:fontFamily">@font/font_pretendard</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
@@ -16,9 +17,16 @@
     <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
         <item name="background">@color/ivory_100</item>
         <item name="titleTextColor">@color/black</item>
+        <item name="android:fontFamily">@font/font_pretendard</item>
     </style>
 
     <style name="Theme.TabApp.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
     <style name="Theme.TabApp.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    <style name="Widget.EditText.PrimaryColor" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxStrokeColor">@color/brown_500</item>
+        <item name="colorControlActivated">@color/brown_500</item>
+        <item name="colorAccent">@color/brown_500</item>
+        <item name="android:textColorHint">@color/gray_500</item>
+    </style>
 </resources>

@@ -14,7 +14,7 @@ class ReviewDialog(
     context: Context,
     private val photosAdapter: PhotosAdapter,
     private val review: Review,
-    private val position: Int // -1 for add, position(>=0) for update
+    private val position: Int, // -1 for add, position(>=0) for update
 ) : Dialog(context) {
     private lateinit var binding: DialogAddReviewBinding
     private var toast: Toast? = null

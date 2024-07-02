@@ -40,7 +40,7 @@ class PhotosAdapter(
     override fun onBindViewHolder(holder: Holder, position: Int) {
         val review = reviewList[position]
         holder.item.setOnClickListener {
-            showReviewInfo(review)
+            showReviewInfo(review, position)
         }
         holder.item.setOnLongClickListener {
             if (review.isAdminUser) {
@@ -82,16 +82,14 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
-    private fun showReviewInfo(review: Review) {
-        Log.d("show", "started showReviewInfo")
+    private fun showReviewInfo(review: Review, position: Int) {
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
-        val fullscreenFragment = PhotoFullscreenFragment(review)
+        val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
         fragmentManager
             .beginTransaction()
             .replace(layoutId, fullscreenFragment, "PHOTOS_FULLSCREEN")
             .addToBackStack(null)
             .commit()
-        Log.d("show", "ended showReviewInfo")
     }
 
     private fun showEditOrRemoveDialog(review: Review, position: Int) {

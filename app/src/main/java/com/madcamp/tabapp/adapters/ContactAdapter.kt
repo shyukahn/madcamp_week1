@@ -10,7 +10,6 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.madcamp.tabapp.ContactDetailActivity
@@ -38,7 +37,6 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
 
         fun bind(contact: ContactModel, context: Context) {
             binding.storeName.text = contact.storeName
-            binding.storeNumber.text = contact.storeNumber
             binding.storeAddress.text = contact.storeAddress
             Glide.with(binding.storeThumbnail.context)
                 .load(contact.storeThumbnail)

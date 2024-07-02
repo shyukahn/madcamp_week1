@@ -50,19 +50,11 @@
             android:textColor="#000000" />
 
         <TextView
-            android:id="@+id/storeNumber"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="1588-8069"
-            android:textSize="14sp"
-            android:textColor="#555555" />
-
-        <TextView
             android:id="@+id/storeAddress"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="주소"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:textColor="#555555" />
     </LinearLayout>
 

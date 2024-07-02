@@ -35,8 +35,7 @@
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="false"
-            android:theme="@style/Theme.TabApp.NoActionBar">
+            android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

@@ -26,6 +26,10 @@ class BookmarkedBakeriesActivity : BaseActivity() {
         binding = ActivityBookmarkedBakeriesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        binding.toolbar.setNavigationOnClickListener {
+            finish()
+        }
+
         setupRecyclerView()
         loadBakeriesFromJson()
         filterBookmarkedBakeries()

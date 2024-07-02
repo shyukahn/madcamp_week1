@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.madcamp.tabapp.ContactDetailActivity
 import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Bookmark
 import com.madcamp.tabapp.data.database.InitDb
@@ -52,6 +53,17 @@ class BookmarkBakeryAdapter(private val bakeryList: ArrayList<ContactModel>, pri
                 }
                 val options = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.slide_in_right, R.anim.slide_out_left)
                 context.startActivity(Intent.createChooser(intent, "공유하기"), options.toBundle())
+            }
+
+            binding.root.setOnClickListener{
+                val intent = Intent(context, ContactDetailActivity::class.java).apply {
+                    putExtra("storeName", bakery.storeName)
+                    putExtra("storeNumber", bakery.storeNumber)
+                    putExtra("storeAddress", bakery.storeAddress)
+                    putExtra("storeThumbnail", bakery.storeThumbnail)
+                    putExtra("bakeryId", bakery.storeId)
+                }
+                context.startActivity(intent)
             }
         }
     }

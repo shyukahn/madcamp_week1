@@ -10,7 +10,7 @@ import androidx.room.Update
 @Dao
 interface ReviewDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insert(review: Review)
+    suspend fun insert(review: Review): Long
 
     @Update
     suspend fun update(review: Review)

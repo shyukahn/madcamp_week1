@@ -23,7 +23,14 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     private lateinit var photosAdapter: PhotosAdapter
     private val pickMultipleMedia = registerForActivityResult(PickVisualMedia()) { uri ->
         uri?.let {
-            ReviewDialog(requireContext(), photosAdapter, uri).show()
+            val review = Review(
+                name = "",
+                reviewText = "",
+                imageUri = uri.toString(),
+                writer = "admin",
+                profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
+            )
+            ReviewDialog(requireContext(), photosAdapter, review, -1).show()
         }
     }
     private val reviewDao = InitDb.appDatabase.reviewDao()
@@ -38,15 +45,13 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             name = "성심당",
             reviewText = "Good",
             imageUri = "android.resource://com.madcamp.tabapp/" + R.drawable.sungsimdang,
-            writer = "admin"
+            writer = "admin",
+            profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
         )
         CoroutineScope(Dispatchers.IO).launch {
             reviewList = reviewListDeferred.await()
             if (reviewList.isEmpty()) {
-                CoroutineScope(Dispatchers.IO).launch {
-                    reviewDao.insert(defaultReview)
-                }
-                reviewList.add(defaultReview)
+                addDefaultReview(defaultReview)
             }
         }
     }
@@ -69,5 +74,14 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         }
 
         return binding.root
+    }
+
+    private fun addDefaultReview(defaultReview: Review) {
+        val id = CoroutineScope(Dispatchers.IO).async {
+            reviewDao.insert(defaultReview)
+        }
+        CoroutineScope(Dispatchers.IO).launch {
+            reviewList.add(defaultReview.getCopyWithNewId(id.await()))
+        }
     }
 }

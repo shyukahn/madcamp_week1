@@ -41,7 +41,9 @@ class PhotosAdapter(
             showReviewInfo(review)
         }
         holder.item.setOnLongClickListener {
-            showEditOrRemoveDialog(review, position)
+            if (review.isAdminUser) {
+                showEditOrRemoveDialog(review, position)
+            }
             return@setOnLongClickListener true
         }
         holder.src.setImageURI(Uri.parse(review.imageUri))

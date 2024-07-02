@@ -28,7 +28,8 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
                 reviewText = "",
                 imageUri = uri.toString(),
                 writer = "admin",
-                profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
+                profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.profile_image,
+                isAdminUser = true
             )
             ReviewDialog(requireContext(), photosAdapter, review, -1).show()
         }
@@ -46,7 +47,8 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             reviewText = "Good",
             imageUri = "android.resource://com.madcamp.tabapp/" + R.drawable.sungsimdang,
             writer = "admin",
-            profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.noon
+            profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.profile_image,
+            isAdminUser = false
         )
         CoroutineScope(Dispatchers.IO).launch {
             reviewList = reviewListDeferred.await()

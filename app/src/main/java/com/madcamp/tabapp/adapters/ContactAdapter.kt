@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.madcamp.tabapp.ContactDetailActivity
 import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Bookmark
 import com.madcamp.tabapp.data.database.InitDb
@@ -95,6 +96,17 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                         }
                     }
                 }
+            }
+
+            binding.root.setOnClickListener {
+                val intent = Intent(context, ContactDetailActivity::class.java).apply {
+                    putExtra("storeName", contact.storeName)
+                    putExtra("storeNumber", contact.storeNumber)
+                    putExtra("storeAddress", contact.storeAddress)
+                    putExtra("storeThumbnail", contact.storeThumbnail)
+                    putExtra("bakeryId", contact.storeId) // storeId를 bakeryId로 전달
+                }
+                context.startActivity(intent)
             }
         }
 

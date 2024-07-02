@@ -20,7 +20,7 @@ class SplashActivity : AppCompatActivity() {
         // Delay to simulate loading (e.g., 2 seconds)
         Handler(Looper.getMainLooper()).postDelayed({
             checkLoginStatus()
-        }, 2000)
+        }, 1000)
     }
 
     private fun checkLoginStatus() {

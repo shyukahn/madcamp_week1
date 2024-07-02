@@ -87,7 +87,6 @@ class LoginActivity : AppCompatActivity() {
             val testUser = User(
                 loginId = loginId,
                 password = password,  // Note: In a real application, passwords should be hashed
-                // TODO: change fullName
                 nickname = "Admin User",
                 contact = "admin@example.com"
             )

@@ -31,6 +31,10 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
             val intent = Intent(context, BookmarkedBakeriesActivity::class.java)
             startActivity(intent)
         }
+        binding.myReviews.setOnClickListener {
+            val intent = Intent(context, MyReviewsActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onDestroyView() {

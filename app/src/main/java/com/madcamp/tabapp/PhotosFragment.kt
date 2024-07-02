@@ -64,7 +64,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPhotosBinding.inflate(inflater, container, false)
-        photosAdapter = PhotosAdapter(this, reviewList)
+        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.mainFrameLayout)
 
         binding.rvPhotos.apply {
             adapter = photosAdapter

@@ -6,7 +6,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import com.madcamp.tabapp.R
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.databinding.DialogAddReviewBinding

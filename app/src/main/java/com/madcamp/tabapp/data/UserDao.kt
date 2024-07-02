@@ -19,9 +19,6 @@ interface UserDao {
     @Delete
     suspend fun delete(user: User)
 
-    @Query("SELECT * FROM ${DbConfig.USER_TABLE} WHERE id = :id")
-    suspend fun getUserById(id: Int): User
-
     @Query("SELECT * FROM ${DbConfig.USER_TABLE} WHERE login_id = :userId")
     suspend fun getUserByLoginId(userId: String): User?
 

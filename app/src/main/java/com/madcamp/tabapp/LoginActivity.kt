@@ -89,7 +89,7 @@ class LoginActivity : AppCompatActivity() {
                 password = password,  // Note: In a real application, passwords should be hashed
                 // TODO: change fullName
                 nickname = "Admin User",
-                profileUri = "android.resource://com.madcamp.tabapp/" + R.drawable.profile_image
+                contact = "admin@example.com"
             )
             userDao.insert(testUser)
         }

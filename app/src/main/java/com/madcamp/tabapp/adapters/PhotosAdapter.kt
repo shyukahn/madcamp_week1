@@ -2,7 +2,6 @@ package com.madcamp.tabapp.adapters
 
 import android.content.Context
 import android.net.Uri
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,6 +9,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
+import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.PhotoItemBinding
@@ -19,13 +19,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-// TODO: change the usage of layoutId to R.id.viewPager
 class PhotosAdapter(
     private val context: Context,
-    private val fragment: Fragment,
     private val reviewList: MutableList<Review>,
     private val layoutId: Int
-    ) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
+) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
     private val reviewDao = InitDb.appDatabase.reviewDao()
 
     inner class Holder(binding: PhotoItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -84,19 +82,12 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
-/*
-    private fun showReviewInfo(review: Review) {
-        val fullscreenFragment = PhotoFullscreenFragment(review)
-        fragment.parentFragmentManager
-            .beginTransaction()
-            .replace(R.id.viewPager, fullscreenFragment, "PHOTOS_FULLSCREEN")
-*/
     private fun showReviewInfo(review: Review, position: Int) {
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
         fragmentManager
             .beginTransaction()
-            .replace(layoutId, fullscreenFragment, "PHOTOS_FULLSCREEN")
+            .replace(R.id.fragmentContainer, fullscreenFragment, "PHOTOS_FULLSCREEN")
             .addToBackStack(null)
             .commit()
     }

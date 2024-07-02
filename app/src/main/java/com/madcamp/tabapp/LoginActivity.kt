@@ -15,7 +15,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class LoginActivity : BaseActivity() {
+class LoginActivity : AppCompatActivity() {
 
     private lateinit var btnLogin: Button
     private lateinit var binding: ActivityLoginBinding
@@ -59,6 +59,7 @@ class LoginActivity : BaseActivity() {
                     withContext(Dispatchers.Main) {
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
+                        overridePendingTransition(0, R.anim.fade_out)
                         finish()
                     }
                     return@launch // Early return to prevent executing the rest of the coroutine
@@ -70,6 +71,7 @@ class LoginActivity : BaseActivity() {
                         // Successful login, navigate to the main activity
                         val intent = Intent(this@LoginActivity, MainActivity::class.java)
                         startActivity(intent)
+                        overridePendingTransition(0, R.anim.fade_out)
                         finish()
                     } else {
                         // Invalid login credentials

@@ -8,81 +8,71 @@
     android:background="@color/white"
     tools:context=".PhotoFullscreenFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="@dimen/profile_width"
+        android:layout_height="@dimen/profile_width"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/profile_image" />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingStart="32dp"
-        android:paddingEnd="32dp"
-        android:paddingBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginStart="8dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/profileImage"
+        app:layout_constraintStart_toEndOf="@id/profileImage"
+        app:layout_constraintTop_toTopOf="@id/profileImage"
+        android:text="user" />
 
-        <ImageView
-            android:id="@+id/profileImage"
-            android:layout_width="@dimen/profile_width"
-            android:layout_height="@dimen/profile_width"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@drawable/noon" />
+    <ImageButton
+        android:id="@+id/editButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:contentDescription="edit button"
+        android:src="@drawable/ic_more_horz"
+        app:layout_constraintBottom_toBottomOf="@+id/profileImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/profileImage" />
 
-        <TextView
-            android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="@id/profileImage"
-            app:layout_constraintStart_toEndOf="@id/profileImage"
-            app:layout_constraintTop_toTopOf="@id/profileImage"
-            tools:hint="user" />
+    <ImageView
+        android:id="@+id/reviewImage"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="sungsimdang"
+        android:maxHeight="300dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/profileImage"
+        android:src="@drawable/sungsimdang" />
 
-        <ImageButton
-            android:id="@+id/editButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#00FFFFFF"
-            android:contentDescription="edit button"
-            android:src="@drawable/ic_more_horz"
-            app:layout_constraintBottom_toBottomOf="@+id/profileImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/profileImage" />
+    <TextView
+        android:id="@+id/reviewTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="@+id/profileImage"
+        app:layout_constraintTop_toBottomOf="@+id/reviewImage"
+        android:text="성심당" />
 
-        <ImageView
-            android:id="@+id/reviewImage"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="sungsimdang"
-            android:maxHeight="300dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/profileImage"
-            tools:src="@drawable/sungsimdang" />
+    <TextView
+        android:id="@+id/reviewText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:textColor="@color/black"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/reviewTitle"
+        app:layout_constraintTop_toBottomOf="@id/reviewTitle"
+        android:text="리뷰 내용" />
 
-        <TextView
-            android:id="@+id/reviewTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/profileImage"
-            app:layout_constraintTop_toBottomOf="@+id/reviewImage"
-            tools:hint="성심당" />
-
-        <TextView
-            android:id="@+id/reviewText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="6dp"
-            android:textColor="@color/black"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="@id/reviewTitle"
-            app:layout_constraintTop_toBottomOf="@id/reviewTitle"
-            tools:hint="리뷰 내용" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

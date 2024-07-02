@@ -2,13 +2,13 @@ package com.madcamp.tabapp
 
 import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
+import androidx.fragment.app.Fragment
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.databinding.FragmentPhotoFullscreenBinding
@@ -17,7 +17,7 @@ import com.madcamp.tabapp.dialogs.ReviewDialog
 class PhotoFullscreenFragment(
     private val photosAdapter: PhotosAdapter,
     private val review: Review,
-    private val position: Int
+    private val layoutId: Int
 ) : Fragment(R.layout.fragment_photo_fullscreen) {
     private lateinit var binding: FragmentPhotoFullscreenBinding
 
@@ -52,7 +52,7 @@ class PhotoFullscreenFragment(
                 when (item.itemId) {
                     R.id.popup_edit -> {
                         val reviewDialog =
-                            ReviewDialog(requireContext(), photosAdapter, review, position)
+                            ReviewDialog(requireContext(), photosAdapter, review, layoutId)
                         reviewDialog.setOnDismissListener {
                             requireActivity().supportFragmentManager.popBackStack()
                         }
@@ -60,7 +60,7 @@ class PhotoFullscreenFragment(
                         return@setOnMenuItemClickListener true
                     }
                     R.id.popup_remove -> {
-                        showRemoveDialog(review, position)
+                        showRemoveDialog(review, layoutId)
                         return@setOnMenuItemClickListener true
                     }
                     else -> false

@@ -11,16 +11,21 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.madcamp.tabapp.databinding.FragmentPhotosBinding
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.Review
+import com.madcamp.tabapp.data.ReviewDao
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.dialogs.ReviewDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class PhotosFragment : Fragment(R.layout.fragment_photos) {
     private lateinit var binding: FragmentPhotosBinding
     private lateinit var photosAdapter: PhotosAdapter
+    private lateinit var reviewList: MutableList<Review>
+    private lateinit var reviewDao: ReviewDao // reviewDao를 클래스 레벨에서 정의
+
     private val pickMultipleMedia = registerForActivityResult(PickVisualMedia()) { uri ->
         uri?.let {
             val review = Review(
@@ -34,18 +39,19 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             ReviewDialog(requireContext(), photosAdapter, review, -1).show()
         }
     }
-    private val reviewDao = InitDb.appDatabase.reviewDao()
-    private val reviewListDeferred = CoroutineScope(Dispatchers.IO).async {
-        reviewDao.getAllReviews().toMutableList()
-    }
-    private lateinit var reviewList: MutableList<Review>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         CoroutineScope(Dispatchers.IO).launch {
-            reviewList = reviewListDeferred.await()
-            if (reviewList.isEmpty()) {
-                initReviews()
+            reviewDao = InitDb.appDatabase.reviewDao() // reviewDao 초기화
+            reviewList = reviewDao.getAllReviews().toMutableList()
+
+            withContext(Dispatchers.Main) {
+                if (reviewList.isEmpty()) {
+                    initReviews()
+                } else {
+                    setupRecyclerView()
+                }
             }
         }
     }
@@ -56,18 +62,20 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentPhotosBinding.inflate(inflater, container, false)
-        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.mainFrameLayout)
-
-        binding.rvPhotos.apply {
-            adapter = photosAdapter
-            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
-        }
 
         binding.addButton.setOnClickListener {
             pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
         return binding.root
+    }
+
+    private fun setupRecyclerView() {
+        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.viewPager)
+        binding.rvPhotos.apply {
+            adapter = photosAdapter
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
     }
 
     private fun initReviews() {
@@ -145,17 +153,15 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
                 isAdminUser = false
             )
         )
-        for (review in defaultReviewList) {
-            addDefaultReview(review)
-        }
-    }
 
-    private fun addDefaultReview(defaultReview: Review) {
-        val id = CoroutineScope(Dispatchers.IO).async {
-            reviewDao.insert(defaultReview)
-        }
         CoroutineScope(Dispatchers.IO).launch {
-            reviewList.add(defaultReview.getCopyWithNewId(id.await()))
+            for (review in defaultReviewList) {
+                val id = reviewDao.insert(review)
+                reviewList.add(review.copy(id = id)) // 복사된 ID로 리뷰 리스트 업데이트
+            }
+            withContext(Dispatchers.Main) {
+                setupRecyclerView()
+            }
         }
     }
 }

@@ -4,35 +4,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:id="@+id/profile_image"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginBottom="16dp"
-        android:src="@drawable/profile_image" />
-
-    <TextView
-        android:id="@+id/nickname"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="24dp"
-        android:text="닉네임"
-        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+        android:background="@drawable/profile_background"
+        android:orientation="vertical"
+        android:paddingStart="32dp"
+        android:paddingTop="64dp"
+        android:paddingBottom="20dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start">
+
+            <View
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/profile_image_background" />
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:src="@drawable/profile_image" />
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="16dp"
+            android:text="닉네임"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/bookmarked_bakeries"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/section_background"
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
         android:padding="16dp">
 
         <ImageView
@@ -52,10 +77,11 @@
         android:id="@+id/my_reviews"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
+        android:background="@drawable/section_background"
         android:clickable="true"
         android:focusable="true"
         android:orientation="horizontal"
+        android:layout_marginHorizontal="16dp"
         android:padding="16dp">
 
         <ImageView

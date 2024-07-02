@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.io.InputStreamReader
 
-class ContactDetailActivity : AppCompatActivity() {
+class ContactDetailActivity : BaseActivity() {
 
     private lateinit var binding: ActivityContactDetailBinding
     private val bakeryDetailList: ArrayList<BakeryDetailModel> = arrayListOf()

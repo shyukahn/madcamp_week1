@@ -39,7 +39,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_round_star" />
+            android:src="@drawable/ic_round_star_tab3" />
 
         <TextView
             android:layout_width="wrap_content"

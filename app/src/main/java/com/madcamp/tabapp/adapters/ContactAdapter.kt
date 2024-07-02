@@ -10,6 +10,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.madcamp.tabapp.ContactDetailActivity
@@ -117,6 +118,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                 starStoreBtn.setImageResource(R.drawable.ic_round_star_outline)
             }
         }
+
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

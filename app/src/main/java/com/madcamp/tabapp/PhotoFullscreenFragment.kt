@@ -33,27 +33,8 @@ class PhotoFullscreenFragment(
             reviewImage.setImageURI(Uri.parse(review.imageUri))
             reviewTitle.text = review.name
             reviewText.text = review.reviewText
-            editButton.setOnClickListener {
-                val popup = PopupMenu(requireContext(), it)
-                popup.setOnMenuItemClickListener { item ->
-                    when(item.itemId) {
-                        R.id.popup_edit -> {
-                            val reviewDialog = ReviewDialog(requireContext(), photosAdapter, review, position)
-                            reviewDialog.setOnDismissListener {
-                                requireActivity().supportFragmentManager.popBackStack()
-                            }
-                            reviewDialog.show()
-                            return@setOnMenuItemClickListener true
-                        }
-                        R.id.popup_remove -> {
-                            showRemoveDialog(review, position)
-                            return@setOnMenuItemClickListener true
-                        }
-                        else -> false
-                    }
-                }
-                activity?.menuInflater?.inflate(R.menu.review_popup, popup.menu)
-                popup.show()
+            editButton.setOnClickListener { view ->
+                showPopupMenu(view)
             }
             fullScreen.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
@@ -61,6 +42,53 @@ class PhotoFullscreenFragment(
         }
 
         return binding.root
+    }
+
+    private fun showPopupMenu(view: View) {
+        val popup = PopupMenu(requireContext(), view)
+        if (review.isAdminUser) {
+            // Editable review
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.popup_edit -> {
+                        val reviewDialog =
+                            ReviewDialog(requireContext(), photosAdapter, review, position)
+                        reviewDialog.setOnDismissListener {
+                            requireActivity().supportFragmentManager.popBackStack()
+                        }
+                        reviewDialog.show()
+                        return@setOnMenuItemClickListener true
+                    }
+                    R.id.popup_remove -> {
+                        showRemoveDialog(review, position)
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> false
+                }
+            }
+            activity?.menuInflater?.inflate(R.menu.review_popup, popup.menu)
+            popup.show()
+        } else {
+            // Non-editable review
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    R.id.popup_report -> {
+                        Toast.makeText(requireContext(), "리뷰가 신고되었습니다", Toast.LENGTH_SHORT).show()
+                        requireActivity().supportFragmentManager.popBackStack()
+                        return@setOnMenuItemClickListener true
+                    }
+
+                    R.id.popup_block -> {
+                        Toast.makeText(requireContext(), "리뷰가 차단되었습니다", Toast.LENGTH_SHORT).show()
+                        requireActivity().supportFragmentManager.popBackStack()
+                        return@setOnMenuItemClickListener true
+                    }
+                    else -> false
+                }
+            }
+            activity?.menuInflater?.inflate(R.menu.review_popup_no_edit, popup.menu)
+            popup.show()
+        }
     }
 
     private fun showRemoveDialog(review: Review, position: Int) {

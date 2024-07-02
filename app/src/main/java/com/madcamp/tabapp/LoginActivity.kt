@@ -87,8 +87,7 @@ class LoginActivity : AppCompatActivity() {
             val testUser = User(
                 loginId = loginId,
                 password = password,  // Note: In a real application, passwords should be hashed
-                // TODO: change fullName
-                nickname = "Admin User",
+                nickname = "빵빵이",
                 contact = "admin@example.com"
             )
             userDao.insert(testUser)

@@ -18,14 +18,12 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         _binding = FragmentMypageBinding.bind(view)
+        val userDao = InitDb.appDatabase.userDao()
 
         CoroutineScope(Dispatchers.IO).launch {
-            val userDao = InitDb.appDatabase.userDao()
-            // TODO: test user "admin" -> refactor using variable
-            val user = userDao.getUserByLoginId("admin")
-            if (user != null) {
-                binding.nickname.text = user.nickname
-            }
+            val user = userDao.getAllUsers()[0]
+            binding.nickname.text = user.nickname
+
         }
         binding.bookmarkedBakeries.setOnClickListener {
             val intent = Intent(context, BookmarkedBakeriesActivity::class.java)

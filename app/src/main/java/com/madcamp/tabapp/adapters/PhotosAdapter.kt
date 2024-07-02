@@ -21,7 +21,8 @@ import kotlinx.coroutines.launch
 class PhotosAdapter(
     private val fragment: Fragment,
     private val reviewList: MutableList<Review>
-    ) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
+) : RecyclerView.Adapter<PhotosAdapter.Holder>() {
+
     private val reviewDao = InitDb.appDatabase.reviewDao()
 
     inner class Holder(binding: PhotoItemBinding) : RecyclerView.ViewHolder(binding.root) {
@@ -42,7 +43,7 @@ class PhotosAdapter(
         }
         holder.item.setOnLongClickListener {
             showEditOrRemoveDialog(review, position)
-            return@setOnLongClickListener true
+            true
         }
         holder.src.setImageURI(Uri.parse(review.imageUri))
         holder.text.text = review.name
@@ -79,11 +80,10 @@ class PhotosAdapter(
     }
 
     private fun showReviewInfo(review: Review) {
-        val fragmentManager = fragment.requireActivity().supportFragmentManager
         val fullscreenFragment = PhotoFullscreenFragment(review)
-        fragmentManager
+        fragment.parentFragmentManager
             .beginTransaction()
-            .replace(R.id.mainFrameLayout, fullscreenFragment, "PHOTOS_FULLSCREEN")
+            .replace(R.id.viewPager, fullscreenFragment, "PHOTOS_FULLSCREEN")
             .addToBackStack(null)
             .commit()
     }
@@ -104,11 +104,11 @@ class PhotosAdapter(
         AlertDialog.Builder(this.fragment.requireContext())
             .setTitle("Remove")
             .setMessage("Remove this review?")
-            .setPositiveButton("yes") { _, _ ->
+            .setPositiveButton("Yes") { _, _ ->
                 removeReview(review, position)
                 Toast.makeText(fragment.requireContext(), "Successfully removed review", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("no") { _, _ -> }
+            .setNegativeButton("No", null)
             .create()
             .show()
     }

@@ -1,39 +1,51 @@
 package com.madcamp.tabapp
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.viewpager2.adapter.FragmentStateAdapter
+import androidx.viewpager2.widget.ViewPager2
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.madcamp.tabapp.adapters.ViewPagerAdapter
 import com.madcamp.tabapp.databinding.ActivityMainBinding
 
-class MainActivity : BaseActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
+    private lateinit var viewPager: ViewPager2
+    private lateinit var bottomNavigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Initialize fragments
-        val contactsFragment = ContactsFragment()
+        viewPager = binding.viewPager
+        bottomNavigationView = binding.bottomNavigationView
 
-        // Set the initial fragment
-        setCurrentFragment(contactsFragment, "CONTACTS")
+        val fragments = arrayListOf(
+            ContactsFragment(),
+            PhotosFragment(),
+            MypageFragment()
+        )
 
-        // Set up the bottom navigation view item selected listener
-        binding.bottomNavigationView.setOnItemSelectedListener { item ->
+        val adapter = ViewPagerAdapter(this, fragments)
+        viewPager.adapter = adapter
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                bottomNavigationView.menu.getItem(position).isChecked = true
+            }
+        })
+
+        bottomNavigationView.setOnItemSelectedListener { item ->
             when (item.itemId) {
-                R.id.contacts -> setCurrentFragment(ContactsFragment(), "CONTACTS")
-                R.id.photos -> setCurrentFragment(PhotosFragment(), "PHOTOS")
-                R.id.settings -> setCurrentFragment(MypageFragment(), "MY PAGE")
+                R.id.contacts -> viewPager.currentItem = 0
+                R.id.photos -> viewPager.currentItem = 1
+                R.id.settings -> viewPager.currentItem = 2
             }
             true
         }
     }
-
-    private fun setCurrentFragment(fragment: Fragment, tag: String) =
-        supportFragmentManager.beginTransaction().apply {
-            replace(R.id.mainFrameLayout, fragment, tag)
-            commit()
-        }
 }

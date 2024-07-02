@@ -9,6 +9,7 @@ import com.madcamp.tabapp.databinding.FragmentMypageBinding
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MypageFragment : Fragment(R.layout.fragment_mypage) {
 
@@ -21,12 +22,15 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
 
         CoroutineScope(Dispatchers.IO).launch {
             val userDao = InitDb.appDatabase.userDao()
-            // TODO: test user "admin" -> refactor using variable
-            val user = userDao.getUserByLoginId("admin")
+            val loginId = "admin" // TODO: Refactor to use variable instead of hardcoding
+            val user = userDao.getUserByLoginId(loginId)
             if (user != null) {
-                binding.nickname.text = user.nickname
+                withContext(Dispatchers.Main) {
+                    binding.nickname.text = user.nickname
+                }
             }
         }
+
         binding.bookmarkedBakeries.setOnClickListener {
             val intent = Intent(context, BookmarkedBakeriesActivity::class.java)
             startActivity(intent)

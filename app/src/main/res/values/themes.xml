@@ -12,6 +12,7 @@
         <item name="android:fontFamily">@font/font_pretendard</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="Widget.AppTheme.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">

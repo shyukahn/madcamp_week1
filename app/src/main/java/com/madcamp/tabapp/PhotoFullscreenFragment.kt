@@ -33,7 +33,7 @@ class PhotoFullscreenFragment(
             reviewImage.setImageURI(Uri.parse(review.imageUri))
             reviewTitle.text = review.name
             reviewText.text = review.reviewText
-            editButton.setOnClickListener { view ->
+            moreButton.setOnClickListener { view ->
                 showPopupMenu(view)
             }
             fullScreen.setOnClickListener {

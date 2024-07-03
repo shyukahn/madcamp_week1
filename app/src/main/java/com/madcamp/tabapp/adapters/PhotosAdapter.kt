@@ -4,12 +4,15 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
+import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.PhotoItemBinding
@@ -92,6 +95,7 @@ class PhotosAdapter(
     private fun showReviewInfo(review: Review, position: Int) {
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
+        context.findViewById<FrameLayout>(R.id.fullscreenFragmentContainer)?.visibility = View.VISIBLE
         fragmentManager
             .beginTransaction()
             .replace(layoutId, fullscreenFragment, "PHOTOS_FULLSCREEN")

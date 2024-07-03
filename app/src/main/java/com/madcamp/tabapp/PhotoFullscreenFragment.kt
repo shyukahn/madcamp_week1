@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.PopupMenu
@@ -37,14 +38,19 @@ class PhotoFullscreenFragment(
                 showPopupMenu(view)
             }
             fullScreen.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
+                closeScreen()
             }
             toolbar.setOnClickListener {
-                requireActivity().supportFragmentManager.popBackStack()
+                closeScreen()
             }
         }
 
         return binding.root
+    }
+
+    private fun closeScreen() {
+        requireActivity().findViewById<FrameLayout>(R.id.fullscreenFragmentContainer)?.visibility = View.GONE
+        requireActivity().supportFragmentManager.popBackStack()
     }
 
     private fun showPopupMenu(view: View) {

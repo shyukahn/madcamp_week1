@@ -49,7 +49,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
-        photosAdapter = PhotosAdapter(requireContext(), emptyList<Review>().toMutableList(), R.id.fragmentContainer)
+        photosAdapter = PhotosAdapter(requireContext(), emptyList<Review>().toMutableList(), R.id.fullscreenFragmentContainer)
         binding.rvPhotos.apply {
             adapter = photosAdapter
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
@@ -74,7 +74,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     }
 
     private fun setupRecyclerView() {
-        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.fragmentContainer)
+        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.fullscreenFragmentContainer)
         binding.rvPhotos.apply {
             adapter = photosAdapter
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)

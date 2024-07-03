@@ -10,6 +10,7 @@ import android.widget.Filter
 import android.widget.Filterable
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.madcamp.tabapp.ContactDetailActivity
@@ -23,8 +24,10 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class ContactAdapter(private val contactList: ArrayList<ContactModel>, private val context: Context) :
-    RecyclerView.Adapter<ContactAdapter.ViewHolder>(), Filterable {
+class ContactAdapter(
+    private val contactList: ArrayList<ContactModel>,
+    private val context: Context
+) : RecyclerView.Adapter<ContactAdapter.ViewHolder>(), Filterable {
 
     private var filteredContactList = ArrayList<ContactModel>()
     private var itemFilter = ItemFilter()
@@ -33,9 +36,9 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
         filteredContactList.addAll(contactList)
     }
 
-    class ViewHolder(private val binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: ContactItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(contact: ContactModel, context: Context) {
+        fun bind(contact: ContactModel) {
             binding.storeName.text = contact.storeName
             binding.storeAddress.text = contact.storeAddress
             Glide.with(binding.storeThumbnail.context)
@@ -54,6 +57,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                 val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:${contact.storeNumber}"))
                 context.startActivity(intent)
             }
+
             binding.shareStoreBtn.setOnClickListener {
                 val shareText = """
                     추천 빵집을 소개합니다!
@@ -103,9 +107,10 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
                     putExtra("storeNumber", contact.storeNumber)
                     putExtra("storeAddress", contact.storeAddress)
                     putExtra("storeThumbnail", contact.storeThumbnail)
-                    putExtra("bakeryId", contact.storeId) // storeId를 bakeryId로 전달
+                    putExtra("bakeryId", contact.storeId)
                 }
-                context.startActivity(intent)
+                val options = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.slide_in_right, R.anim.slide_out_left)
+                context.startActivity(intent, options.toBundle())
             }
         }
 
@@ -126,7 +131,7 @@ class ContactAdapter(private val contactList: ArrayList<ContactModel>, private v
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val contact = filteredContactList[position]
-        holder.bind(contact, context)
+        holder.bind(contact)
     }
 
     override fun getItemCount(): Int {

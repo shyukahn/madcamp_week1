@@ -1,5 +1,6 @@
 package com.madcamp.tabapp.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
@@ -9,7 +10,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.madcamp.tabapp.PhotoFullscreenFragment
-import com.madcamp.tabapp.R
 import com.madcamp.tabapp.data.Review
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.PhotoItemBinding
@@ -82,12 +82,19 @@ class PhotosAdapter(
         notifyItemChanged(position)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun resetReviewData(newReviewList: List<Review>) {
+        reviewList.clear()
+        reviewList.addAll(newReviewList)
+        notifyDataSetChanged()
+    }
+
     private fun showReviewInfo(review: Review, position: Int) {
         val fragmentManager = (context as AppCompatActivity).supportFragmentManager
         val fullscreenFragment = PhotoFullscreenFragment(this, review, position)
         fragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainer, fullscreenFragment, "PHOTOS_FULLSCREEN")
+            .replace(layoutId, fullscreenFragment, "PHOTOS_FULLSCREEN")
             .addToBackStack(null)
             .commit()
     }

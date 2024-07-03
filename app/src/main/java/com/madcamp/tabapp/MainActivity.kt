@@ -2,9 +2,7 @@ package com.madcamp.tabapp
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.Fragment
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.madcamp.tabapp.adapters.ViewPagerAdapter
 import com.madcamp.tabapp.databinding.ActivityMainBinding
 
@@ -37,5 +35,12 @@ class MainActivity : AppCompatActivity() {
         adapter.addFragment(PhotosFragment())
         adapter.addFragment(MypageFragment())
         viewPager.adapter = adapter
+
+        viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bottomNavigationView.menu.getItem(position).isChecked = true
+            }
+        })
     }
 }

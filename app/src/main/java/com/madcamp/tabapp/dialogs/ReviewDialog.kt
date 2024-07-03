@@ -3,6 +3,8 @@ package com.madcamp.tabapp.dialogs
 import android.app.Dialog
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
@@ -31,6 +33,7 @@ class ReviewDialog(
             binding.dialogHead.text = "수정하기"
             binding.dialogOkButton.text = "수정"
         }
+        window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         setContentView(binding.root)
         setCancelable(false)
 

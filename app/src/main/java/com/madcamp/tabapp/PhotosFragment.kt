@@ -11,12 +11,10 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.madcamp.tabapp.databinding.FragmentPhotosBinding
 import com.madcamp.tabapp.adapters.PhotosAdapter
 import com.madcamp.tabapp.data.Review
-import com.madcamp.tabapp.data.ReviewDao
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.dialogs.ReviewDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -24,7 +22,7 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
     private lateinit var binding: FragmentPhotosBinding
     private lateinit var photosAdapter: PhotosAdapter
     private lateinit var reviewList: MutableList<Review>
-    private lateinit var reviewDao: ReviewDao // reviewDao를 클래스 레벨에서 정의
+    private val reviewDao = InitDb.appDatabase.reviewDao() // reviewDao를 클래스 레벨에서 정의
 
     private val pickMultipleMedia = registerForActivityResult(PickVisualMedia()) { uri ->
         uri?.let {
@@ -40,22 +38,6 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        CoroutineScope(Dispatchers.IO).launch {
-            reviewDao = InitDb.appDatabase.reviewDao() // reviewDao 초기화
-            reviewList = reviewDao.getAllReviews().toMutableList()
-
-            withContext(Dispatchers.Main) {
-                if (reviewList.isEmpty()) {
-                    initReviews()
-                } else {
-                    setupRecyclerView()
-                }
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -67,15 +49,37 @@ class PhotosFragment : Fragment(R.layout.fragment_photos) {
             pickMultipleMedia.launch(PickVisualMediaRequest(PickVisualMedia.ImageOnly))
         }
 
-        return binding.root
-    }
-
-    private fun setupRecyclerView() {
-        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.viewPager)
+        photosAdapter = PhotosAdapter(requireContext(), emptyList<Review>().toMutableList(), R.id.fragmentContainer)
         binding.rvPhotos.apply {
             adapter = photosAdapter
             layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
         }
+
+        return binding.root
+    }
+
+    override fun onStart() {
+        CoroutineScope(Dispatchers.IO).launch {
+            reviewList = reviewDao.getAllReviews().toMutableList()
+
+            withContext(Dispatchers.Main) {
+                if (reviewList.isEmpty()) {
+                    initReviews()
+                } else {
+                    photosAdapter.resetReviewData(reviewList)
+                }
+            }
+        }
+        super.onStart()
+    }
+
+    private fun setupRecyclerView() {
+        photosAdapter = PhotosAdapter(requireContext(), reviewList, R.id.fragmentContainer)
+        binding.rvPhotos.apply {
+            adapter = photosAdapter
+            layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        }
+
     }
 
     private fun initReviews() {

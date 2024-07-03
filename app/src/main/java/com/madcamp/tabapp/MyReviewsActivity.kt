@@ -12,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
-class MyReviewsActivity : AppCompatActivity() {
+class MyReviewsActivity : BaseActivity() {
     private lateinit var binding: ActivityMyReviewsBinding
     private val reviewDao = InitDb.appDatabase.reviewDao()
     private val adminReviewListDeferred = CoroutineScope(Dispatchers.IO).async {
@@ -33,6 +33,10 @@ class MyReviewsActivity : AppCompatActivity() {
             binding.myReviewsRv.apply {
                 adapter = myReviewAdapter
                 layoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+            }
+
+            binding.toolbar.setNavigationOnClickListener {
+                finish()
             }
         }
     }

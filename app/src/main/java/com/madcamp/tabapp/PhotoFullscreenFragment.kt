@@ -39,6 +39,9 @@ class PhotoFullscreenFragment(
             fullScreen.setOnClickListener {
                 requireActivity().supportFragmentManager.popBackStack()
             }
+            toolbar.setOnClickListener {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
 
         return binding.root

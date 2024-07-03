@@ -39,7 +39,7 @@
             android:layout_marginTop="4dp"
             android:textAlignment="center"
             android:textColor="@color/black"
-            android:textSize="20sp"
+            android:textSize="16sp"
             tools:text="성심당" />
     </RelativeLayout>
 

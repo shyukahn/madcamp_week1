@@ -102,14 +102,14 @@ class PhotoFullscreenFragment(
 
     private fun showRemoveDialog(review: Review, position: Int) {
         AlertDialog.Builder(requireContext())
-            .setTitle("Remove")
-            .setMessage("Remove this review?")
-            .setPositiveButton("yes") { _, _ ->
+            .setTitle("리뷰 삭제")
+            .setMessage("이 리뷰를 삭제하시겠습니까?")
+            .setPositiveButton("네") { _, _ ->
                 photosAdapter.removeReview(review, position)
-                Toast.makeText(context, "Successfully removed review", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "리뷰를 삭제했습니다", Toast.LENGTH_SHORT).show()
                 requireActivity().supportFragmentManager.popBackStack()
             }
-            .setNegativeButton("no") { _, _ -> }
+            .setNegativeButton("아니오") { _, _ -> }
             .create()
             .show()
     }

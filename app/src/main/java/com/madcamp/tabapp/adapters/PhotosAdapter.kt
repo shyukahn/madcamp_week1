@@ -105,7 +105,7 @@ class PhotosAdapter(
 
     private fun showEditOrRemoveDialog(review: Review, position: Int) {
         AlertDialog.Builder(context)
-            .setItems(arrayOf("Edit", "Remove")) { _, which ->
+            .setItems(arrayOf("수정", "삭제")) { _, which ->
                 when (which) {
                     0 -> ReviewDialog(context, this, review, position).show()
                     1 -> showRemoveDialog(review, position)
@@ -117,13 +117,13 @@ class PhotosAdapter(
 
     private fun showRemoveDialog(review: Review, position: Int) {
         AlertDialog.Builder(context)
-            .setTitle("Remove")
-            .setMessage("Remove this review?")
-            .setPositiveButton("Yes") { _, _ ->
+            .setTitle("리뷰 삭제")
+            .setMessage("이 리뷰를 삭제하시겠습니까?")
+            .setPositiveButton("네") { _, _ ->
                 removeReview(review, position)
-                Toast.makeText(context, "Successfully removed review", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "리뷰를 삭제했습니다", Toast.LENGTH_SHORT).show()
             }
-            .setNegativeButton("No", null)
+            .setNegativeButton("아니오", null)
             .create()
             .show()
     }

@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_margin="48dp"
     android:layout_gravity="center"
-    android:paddingBottom="8dp">
+    android:layout_margin="48dp"
+    android:background="@drawable/dialog_background"
+    android:paddingBottom="28dp">
 
     <TextView
         android:id="@+id/dialogHead"
         android:layout_width="@dimen/dialog_width"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:layout_marginStart="28dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="40dp"
-        android:text="New Review"
+        android:text="리뷰 쓰기"
         android:textColor="@color/black"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,8 +26,8 @@
         android:id="@+id/dialogImage"
         android:layout_width="@dimen/dialog_width"
         android:layout_height="@dimen/dialog_width"
-        android:layout_marginTop="28dp"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="28dp"
         android:layout_marginEnd="60dp"
         android:adjustViewBounds="true"
         android:contentDescription="review image"
@@ -47,7 +48,7 @@
         android:maxLines="1"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@id/dialogImage"
-        app:layout_constraintTop_toBottomOf="@id/dialogImage"/>
+        app:layout_constraintTop_toBottomOf="@id/dialogImage" />
 
     <EditText
         android:id="@+id/dialogReview"
@@ -67,12 +68,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="28dp"
         android:backgroundTint="#E65008"
         android:minWidth="70dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="ok"
+        android:text="추가"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogReview" />
@@ -82,13 +84,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="14dp"
         android:backgroundTint="@color/white"
         android:minWidth="70dp"
         android:paddingLeft="4dp"
         android:paddingRight="4dp"
-        android:text="cancel"
+        android:text="취소"
         android:textColor="#E65008"
+        app:cornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/dialogOkButton"
         app:layout_constraintTop_toBottomOf="@+id/dialogReview" />

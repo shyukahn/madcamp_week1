@@ -162,10 +162,10 @@ class ContactAdapter(
                         filteredList.add(contact)
                     }
                 }
-                // 그 외의 경우(공백 제외 2글자 초과) -> 이름/전화번호로 검색
+                // 그 외의 경우(공백 제외 2글자 초과) -> 이름/주소로 검색
             } else {
                 for (contact in contactList) {
-                    if (contact.storeName.contains(filterString) || contact.storeNumber.contains(filterString)) {
+                    if (contact.storeName.contains(filterString) || contact.storeAddress.contains(filterString)) {
                         filteredList.add(contact)
                     }
                 }

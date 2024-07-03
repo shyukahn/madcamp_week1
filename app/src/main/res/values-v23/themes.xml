@@ -3,7 +3,7 @@
     <style name="Theme.TabApp.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="android:statusBarColor">@color/ivory_100</item>
+        <item name="android:statusBarColor">@color/ivory_200</item>
         <item name="android:windowLightStatusBar">true</item>
     </style>
 
@@ -14,7 +14,7 @@
         <item name="colorSecondaryVariant">@color/orange_200</item>
         <item name="colorOnSecondary">@color/ivory_100</item>
         <item name="android:windowBackground">@color/ivory_100</item>
-        <item name="android:statusBarColor">@color/ivory_100</item>
+        <item name="android:statusBarColor">@color/ivory_200</item>
         <item name="android:toolbarStyle">@style/Widget.AppTheme.Toolbar</item>
         <item name="android:fontFamily">@font/font_pretendard</item>
         <item name="windowActionBar">false</item>

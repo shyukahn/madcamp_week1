@@ -4,7 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.gson.Gson
@@ -40,6 +43,31 @@ class ContactsFragment : Fragment(R.layout.fragment_contacts) {
         insertBookmarks()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val searchView: SearchView = view.findViewById(R.id.search_bar)
+        searchView.post {
+            try {
+                val searchEditText: EditText = searchView.findViewById(androidx.appcompat.R.id.search_src_text)
+
+                // Customizing the EditText
+                searchEditText.layoutParams = ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
+                searchEditText.textSize = 14f
+
+                context?.let { ctx ->
+                    searchEditText.setHintTextColor(ContextCompat.getColor(ctx, R.color.gray_100))
+                    searchEditText.setTextColor(ContextCompat.getColor(ctx, R.color.black))
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
+            }
+        }
     }
 
     override fun onDestroyView() {

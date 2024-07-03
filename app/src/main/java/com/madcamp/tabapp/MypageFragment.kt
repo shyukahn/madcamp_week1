@@ -3,6 +3,7 @@ package com.madcamp.tabapp
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.core.app.ActivityOptionsCompat
 import androidx.fragment.app.Fragment
 import com.madcamp.tabapp.data.database.InitDb
 import com.madcamp.tabapp.databinding.FragmentMypageBinding
@@ -22,7 +23,6 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
         val userDao = InitDb.appDatabase.userDao()
 
         CoroutineScope(Dispatchers.IO).launch {
-            val userDao = InitDb.appDatabase.userDao()
             val loginId = "admin" // TODO: Refactor to use variable instead of hardcoding
             val user = userDao.getUserByLoginId(loginId)
             if (user != null) {
@@ -34,11 +34,17 @@ class MypageFragment : Fragment(R.layout.fragment_mypage) {
 
         binding.bookmarkedBakeries.setOnClickListener {
             val intent = Intent(context, BookmarkedBakeriesActivity::class.java)
-            startActivity(intent)
+            val options = context?.let { it1 -> ActivityOptionsCompat.makeCustomAnimation(it1, R.anim.slide_in_right, R.anim.slide_out_left) }
+            if (options != null) {
+                context?.startActivity(intent, options.toBundle())
+            }
         }
         binding.myReviews.setOnClickListener {
             val intent = Intent(context, MyReviewsActivity::class.java)
-            startActivity(intent)
+            val options = context?.let { it1 -> ActivityOptionsCompat.makeCustomAnimation(it1, R.anim.slide_in_right, R.anim.slide_out_left) }
+            if (options != null) {
+                context?.startActivity(intent, options.toBundle())
+            }
         }
     }
 
